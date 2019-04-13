@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
 const events = require("./routes/api/events");
+require('./config/passport')(passport);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,7 +20,7 @@ mongoose
 app.use("/api/users", users);
 app.use("/api/events", events);
 
-app.get("/", (req, res) => res.send("PubStats"));
+app.use(passport.initialize());
 
 const port = process.env.PORT || 3000;
 
