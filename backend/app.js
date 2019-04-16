@@ -6,7 +6,6 @@ const passport = require('passport');
 
 const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
-const events = require("./routes/api/events");
 require('./config/passport')(passport);
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,7 +17,6 @@ mongoose
   .catch(err => console.log(err));
 
 app.use("/api/users", users);
-app.use("/api/events", events);
 
 app.use(passport.initialize());
 
