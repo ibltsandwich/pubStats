@@ -11,6 +11,8 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => res.send("pubStats"));
+
 mongoose
   .connect(db)
   .then(() => console.log("Connected to MongoDB successfully"))
