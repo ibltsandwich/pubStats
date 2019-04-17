@@ -11,7 +11,9 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.send("pubStats"));
+app.get("/", (req, res) => res.sendFile('index.html', { root: __dirname }));
+
+app.use('/public', express.static(__dirname + '/public'));
 
 mongoose
   .connect(db)
