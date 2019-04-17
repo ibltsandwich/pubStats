@@ -17,7 +17,7 @@ const MatchSchema = new Schema({
     required: true
   },
   duration: {
-    type: Integer,
+    type: Number,
     required: true
   },
   createdAt: {

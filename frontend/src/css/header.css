@@ -1,0 +1,16 @@
+.site-header {
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: black;
+  color: white;
+}
+
+.site-header .logo {
+  font-size: 24px
+}
+
+.site-header .session-buttons {
+  font-size: 14px;
+}
