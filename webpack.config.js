@@ -1,4 +1,4 @@
-const path = require('path');
+// const path = require('path');
 
 module.exports = {
     entry: './frontend/src/index.jsx',
@@ -19,11 +19,15 @@ module.exports = {
                         presets: ['@babel/env', '@babel/react']
                     }
                 },
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             }
         ]
     },
     devtool: 'source-map',
     resolve: {
         extensions: [".js", ".jsx", "*"]
-    }
+    },
 };
