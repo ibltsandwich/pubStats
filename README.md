@@ -10,6 +10,10 @@ React-Redux
 PUBG Developer API
 
 ## MVP List
+
+### Completed
+
+### To-do
 ### User Auth
 * Players should be able to log in and tie their account to their PUBG player name
 
@@ -26,6 +30,8 @@ PUBG Developer API
 ### Lifetime Stats
 * Or as overall lifetime stats
 
+
+### Bonus
 ### *Full Match History**
 * Potentially include full match history including all teams involved in the match and all of their corresponding stats   
   including distance traveled, total damage dealt, etc.
