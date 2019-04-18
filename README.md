@@ -1,15 +1,15 @@
 ## pubStats
 
-## Description
+# Description
 An app designed to allow users to look up their stats for PlayerUnknown's Battlegrounds
 
-## Technologies Used
+# Technologies Used
 Express framework for Node.js  
 MongoDB  
 React-Redux  
 PUBG Developer API
 
-## MVP List
+# MVP List
 
 ## Completed
 
