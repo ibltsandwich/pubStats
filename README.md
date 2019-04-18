@@ -1,4 +1,4 @@
-## pubStats
+# pubStats
 
 # Description
 An app designed to allow users to look up their stats for PlayerUnknown's Battlegrounds
