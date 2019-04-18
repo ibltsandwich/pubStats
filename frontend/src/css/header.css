@@ -9,8 +9,7 @@
 
 .site-header section {
   background: #f2a900;
-  margin-left: 30px;
-  padding: 0 30px;
+  padding: 0 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,13 +28,14 @@
 .site-header .session-buttons li {
   font-size: 16px;
   height: 100%;
-  padding: 0 30px;
+  padding: 0 60px;
   transition: background .3s ease-in;
   position: relative;
+  display: inline-block;
 }
 
 .site-header .session-buttons li:hover {
-  background: #e4a000;
+  background: #d69500;
   cursor: pointer;
 }
 
