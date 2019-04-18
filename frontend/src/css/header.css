@@ -3,14 +3,47 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: black;
+  background: #313129;
   color: white;
 }
 
-.site-header .logo {
-  font-size: 24px
+.site-header section {
+  background: #f2a900;
+  margin-left: 30px;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.site-header section .logo {
+  font-size: 24px;
 }
 
 .site-header .session-buttons {
-  font-size: 14px;
+  background: #f2a900;
+  text-align: center;
+  height: 100%;
+}
+
+.site-header .session-buttons li {
+  font-size: 16px;
+  height: 100%;
+  padding: 0 30px;
+  transition: background .3s ease-in;
+  position: relative;
+}
+
+.site-header .session-buttons li:hover {
+  background: #e4a000;
+  cursor: pointer;
+}
+
+.site-header .session-buttons li a {
+  color: white;
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
