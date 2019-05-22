@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-const db = require('./config/keys').mongoURI;
+// const db = require('./config/keys').mongoURI;
 const db = process.env.MONGO_URI;
 const users = require("./routes/api/users");
 const matches = require("./routes/api/matches");
