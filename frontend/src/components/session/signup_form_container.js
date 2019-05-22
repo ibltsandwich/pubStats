@@ -2,21 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { loginUser, clearErrors } from '../../util/session_api_util';
+import { registerUser, clearErrors } from '../../util/session_api_util';
 import SessionForm from './session_form';
 
 const mapStateToProps = ({ errors }) => {
   return {
     errors: Object.values(errors),
-    formType: 'Login',
-    navLink: <Link to="/signup">Need an account? Sign-up instead</Link>,
-    message: "Welcome back!"
+    formType: 'Register',
+    navLink: <Link to="/login">Already have an account? Log-in instead</Link>,
+    message: "Create an account"
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps  = dispatch => {
   return {
-    processForm: (user) => dispatch(loginUser(user)),
+    processForm: (user) => dispatch(registerUser(user)),
     clearErrors: () => dispatch(clearErrors())
   };
 };

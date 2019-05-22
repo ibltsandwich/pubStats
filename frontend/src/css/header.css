@@ -8,31 +8,35 @@
   font-family: 'Teko';
 }
 
-.site-header section {
+.site-header .home-link {
   background: #f2a900;
   padding: 0 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: white;
+  text-decoration: none;
 }
 
-.site-header section .logo {
+.site-header .home-link section .logo {
   font-size: 32px;
 }
 
 .site-header .session-buttons {
   background: #f2a900;
-  text-align: center;
   height: 100%;
+  display: flex;
 }
 
 .site-header .session-buttons li {
   font-size: 22px;
+  color: white;
   height: 100%;
-  padding: 0 60px;
+  padding: 0 50px;
   transition: background .3s ease-in;
-  position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .site-header .session-buttons li:hover {
@@ -40,11 +44,26 @@
   cursor: pointer;
 }
 
-.site-header .session-buttons li a {
+.site-header .session-buttons a {
   color: white;
   text-decoration: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 500px) {
+  .site-header {
+    height: 17vw;
+  }
+
+  .site-header .home-link {
+    padding: 0 25px;
+  }
+  
+  .site-header .home-link section .logo {
+    font-size: 22px;
+  }
+  
+  .site-header .session-buttons li {
+    font-size: 14px;
+    padding: 0 20px;
+  }
 }

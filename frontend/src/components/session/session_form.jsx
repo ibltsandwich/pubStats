@@ -52,11 +52,11 @@ class SessionForm extends React.Component {
             <h1>{this.props.message}</h1>
             {this.renderErrors()}
             <br />
-            <label>EMAIL
+            <label>USERNAME
               <br/>
               <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
+                value={this.state.username}
+                onChange={this.update('username')}
                 className="login-input"
                 required
               />
@@ -64,11 +64,11 @@ class SessionForm extends React.Component {
             <br />
             {this.props.formType === 'Register' ?
             <>
-            <label>USERNAME 
+            <label>EMAIL 
               <br/>
               <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
+                value={this.state.email}
+                onChange={this.update('email')}
                 className="login-input"
                 required
               />
@@ -84,7 +84,7 @@ class SessionForm extends React.Component {
               />
             </label>
             <br />
-            
+
             {this.props.formType === 'Register' ? 
             <>
               <label>PASSWORD AGAIN

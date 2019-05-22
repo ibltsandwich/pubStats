@@ -39,17 +39,18 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       const { token } = res.data;
 
-      localStoage.setItem('jwtToken', token);
+      localStorage.setItem('jwtToken', token);
       setAuthToken(token);
 
       const decoded = jwt_decode(token);
       dispatch(setCurrentUser(decoded));
     }) 
-    .catch(err => 
+    .catch(err => {
+      debugger
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
+      })}
     );
 };
 
@@ -65,4 +66,14 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
 
   dispatch(setCurrentUser({}));
+};
+
+export const removeErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
+};
+
+export const clearErrors = () => dispatch => {
+  dispatch(removeErrors());
 };

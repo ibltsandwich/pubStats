@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let store = configureStore();
 
   if (localStorage.jwtToken) {
-    APIUtil.setAuthToken(localStoage.jwtToken);
+    APIUtil.setAuthToken(localStorage.jwtToken);
 
     const decoded = jwt_decode(localStorage.jwtToken);
     store.dispatch(APIUtil.setCurrentUser(decoded));

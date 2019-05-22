@@ -18,12 +18,14 @@ class Header extends React.Component {
   render() {
     return (
       <header className="site-header">
-        <section>
-          <h1 className="logo">pubStats</h1>
-        </section>
+        <Link to="/" className="home-link">
+          <section>
+            <h1 className="logo">pubStats</h1>
+          </section>
+        </Link>
         <ul className="session-buttons">
-          <li><Link>Log In</Link></li>
-          <li><Link>Sign Up</Link></li>
+          <Link to="/login"><li>Log In</li></Link>
+          <Link to="/signup"><li>Sign Up</li></Link>
         </ul>
       </header>
     )
