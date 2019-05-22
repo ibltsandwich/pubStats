@@ -79,8 +79,8 @@
 @media screen and (max-width: 500px) {
   .session-form {
     width: 60%;
-    margin: 15vw auto;
-    padding: 10vw;
+    margin: 0 auto;
+    padding: 15vw;
   }
 
   .session-form h1 {
