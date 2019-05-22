@@ -1,2 +1,7 @@
 @import url("reset.css");
 @import url("header.css");
+@import url("session.css");
+
+body {
+  background: linear-gradient(to right, #29322e 50%, #3e4440);
+}

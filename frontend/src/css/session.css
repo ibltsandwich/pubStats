@@ -1,0 +1,93 @@
+.session-form-box {
+  overflow: hidden;
+}
+
+.session-form {
+  font-family: 'Teko';
+  width: 400px;
+  margin: 5em auto;
+  padding: 3em;
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid;
+  border-color: #f2a900;
+  background: linear-gradient(to right, #29322e 50%, #3e4440); */
+  color: white;
+}
+
+.session-form h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.session-form label {
+  font-size: 30px;
+}
+
+.session-input {
+  font-family: 'Roboto';
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  background: #48483e;
+  border: solid 2px #f2a900;
+  transition: border-color 0s;
+  outline: none;
+}
+
+.session-submit {
+  font-family: 'Teko';
+  background: #f2a900;
+  color: white;
+  font-size: 30px;
+  border: none;
+  padding: 5px;
+  margin-top: 20px;
+  outline: none;
+}
+
+.session-submit:hover {
+  background: #d69500;
+  cursor: pointer;
+}
+
+.session-submit:disabled {
+  background: #535252;
+  color: #a09f9f;
+}
+
+.session-input:focus {
+  background: linear-gradient(to bottom, #48483e, #5f5f5a);
+    border-image: linear-gradient(to bottom, #ffb200, #fee659) 1 stretch;
+}
+
+@media screen and (max-width: 500px) {
+  .session-form {
+    width: 60%;
+    margin: 15vw auto;
+    padding: 10vw;
+  }
+
+  .session-form h1 {
+    font-size: 9vw;
+  }
+
+  .session-form label {
+    font-size: 6vw;
+  }
+  
+  .session-input {
+    font-size: 4vw;
+    padding: 2vw;
+    margin-top: 2vw;
+  }
+
+  .session-submit {
+    font-size: 6vw;
+    margin-top: 2vw;
+    padding: 1vw;
+  }
+}

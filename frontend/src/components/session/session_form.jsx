@@ -17,6 +17,14 @@ class SessionForm extends React.Component {
   }
 
   update(field) {
+    if (this.sessionSubmit) {
+      if (this.state.username.length > 0 && this.state.password.length > 0) {
+        this.sessionSubmit.disabled = false;
+      } else {
+        this.sessionSubmit.disabled = true;
+      }
+    };
+
     return e => this.setState({
       [field]: e.currentTarget.value
     });
@@ -46,62 +54,60 @@ class SessionForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container">
-        <form onSubmit={this.handleSubmit} className="login-form-box">
-          <div className="login-form">
-            <h1>{this.props.message}</h1>
-            {this.renderErrors()}
-            <br />
-            <label>USERNAME
-              <br/>
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                className="login-input"
-                required
-              />
-            </label>
-            <br />
-            {this.props.formType === 'Register' ?
-            <>
-            <label>EMAIL 
-              <br/>
-              <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-                className="login-input"
-                required
-              />
-            </label>
-            <br/> 
-            </> : null }
-            <label>PASSWORD
+      <div className="session-form-container">
+        <form onSubmit={this.handleSubmit} className="session-form">
+          <h1>{this.props.message}</h1>
+          {this.renderErrors()}
+          <br />
+          <label>Username
+            <br/>
+            <input type="text"
+              value={this.state.username}
+              onChange={this.update('username')}
+              className="session-input"
+              required
+            />
+          </label>
+          <br />
+          {this.props.formType === 'Register' ?
+          <>
+          <label>Email address
+            <br/>
+            <input type="text"
+              value={this.state.email}
+              onChange={this.update('email')}
+              className="session-input"
+              required
+            />
+          </label>
+          <br/> 
+          </> : null }
+          <label>Password
+            <br/>
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+              className="session-input"
+            />
+          </label>
+          <br />
+
+          {this.props.formType === 'Register' ? 
+          <>
+            <label>Confirm Password
               <br/>
               <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                className="login-input"
+                value={this.state.password2}
+                onChange={this.update('password2')}
+                className="session-input"
               />
-            </label>
-            <br />
+            </label> 
+            <br/> 
+          </> : null }
 
-            {this.props.formType === 'Register' ? 
-            <>
-              <label>PASSWORD AGAIN
-                <br/>
-                <input type="password"
-                  value={this.state.password2}
-                  onChange={this.update('password2')}
-                  className="login-input"
-                />
-              </label> 
-              <br/> 
-            </> : null }
-
-            <input className="session-submit" type="submit" value={this.props.formType} />
-            <br />
-            {this.props.navLink}
-          </div>
+          <input className="session-submit" type="submit" ref={elem => this.sessionSubmit = elem} value={this.props.formType} disabled/>
+          <br />
+          {this.props.navLink}
         </form>
 
       </div>

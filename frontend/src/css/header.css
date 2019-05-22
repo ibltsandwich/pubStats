@@ -1,9 +1,9 @@
 .site-header {
-  height: 100px;
+  height: 75px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: #313129;
+  background: #f2a900;
   color: white;
   font-family: 'Teko';
 }
@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 500px) {
   .site-header {
-    height: 17vw;
+    height: 13vw;
   }
 
   .site-header .home-link {
