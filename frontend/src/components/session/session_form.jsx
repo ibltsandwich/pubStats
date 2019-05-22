@@ -18,10 +18,18 @@ class SessionForm extends React.Component {
 
   update(field) {
     if (this.sessionSubmit) {
-      if (this.state.username.length > 0 && this.state.password.length > 0) {
-        this.sessionSubmit.disabled = false;
-      } else {
-        this.sessionSubmit.disabled = true;
+      if (this.props.formType === 'Login') {
+        if (this.state.username.length > 0 && this.state.password.length > 0) {
+          this.sessionSubmit.disabled = false;
+        } else {
+          this.sessionSubmit.disabled = true;
+        }
+      } else if (this.props.formType === 'Register') {
+        if (this.state.username.length > 0 && this.state.email.length > 0 && this.state.password.length > 0 && this.state.password2.length > 0) {
+          this.sessionSubmit.disabled = false;
+        } else {
+          this.sessionSubmit.disabled = true;
+        }
       }
     };
 
@@ -39,10 +47,10 @@ class SessionForm extends React.Component {
   renderErrors() {
     if (this.props.errors) {
       return (
-        <ul>
+        <ul className="session-errors-list">
           {this.props.errors.map((error, i) => (
             <li key={`error-${i}`}>
-              {error}
+              * {error}
             </li>
           ))}
         </ul>

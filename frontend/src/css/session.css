@@ -1,12 +1,12 @@
-.session-form-box {
-  overflow: hidden;
+.session-form-container {
+  height: 100%;
 }
 
 .session-form {
   font-family: 'Teko';
   width: 400px;
-  margin: 5em auto;
-  padding: 3em;
+  margin: 0 auto;
+  padding: 5em;
   display: flex;
   flex-direction: column;
   /* border: 2px solid;
@@ -21,7 +21,7 @@
 }
 
 .session-form label {
-  font-size: 30px;
+  font-size: 26px;
 }
 
 .session-input {
@@ -64,6 +64,18 @@
     border-image: linear-gradient(to bottom, #ffb200, #fee659) 1 stretch;
 }
 
+.session-errors-list {
+  font-size: 22px;
+  margin-top: 15px;
+  color: #ef4c4c;
+}
+
+.session-switch {
+  color: white;
+  font-size: 22px;
+  margin-top: 15px;
+}
+
 @media screen and (max-width: 500px) {
   .session-form {
     width: 60%;
@@ -89,5 +101,16 @@
     font-size: 6vw;
     margin-top: 2vw;
     padding: 1vw;
+  }
+
+  .session-errors-list {
+    font-size: 4vw;
+    margin-top: 5vw;
+    color: #ef4c4c;
+  }
+
+  .session-switch {
+    font-size: 5vw;
+    margin-top: 1vw;
   }
 }
