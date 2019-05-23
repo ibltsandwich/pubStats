@@ -73,7 +73,7 @@ class SessionForm extends React.Component {
   render() {
     return (
       <div className="session-form-container">
-        <form onSubmit={this.handleSubmit} className="session-form">
+        <form onSubmit={this.handleSubmit} className="session-form" autoCorrect="off" autoCapitalize="none">
           <h1>{this.props.message}</h1>
           {this.renderErrors()}
           <br />
@@ -83,8 +83,6 @@ class SessionForm extends React.Component {
               value={this.state.username}
               onChange={this.update('username')}
               className="session-input"
-              autoCorrect="off" 
-              autoCapitalize="none"
               required
             />
           </label>
@@ -97,8 +95,6 @@ class SessionForm extends React.Component {
               value={this.state.email}
               onChange={this.update('email')}
               className="session-input"
-              autoCorrect="off" 
-              autoCapitalize="none"
               required
             />
           </label>
