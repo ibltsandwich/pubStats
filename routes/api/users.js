@@ -19,13 +19,15 @@ router.post('/register', (req, res) => {
   }
 
   User
-    .findOne({ email: req.body.email })
+    .findOne({ $or: [ {email: req.body.email }, { username: req.body.username } ] })
     .then(user => {
-      if (user.username) {
-        errors.username = "Username already exists";
-        return res.status(400).json(errors);
-      } else if (user.email) {
-        errors.email = "Email already in use";
+      if (user) {
+        if (user.username === req.body.username) {
+          errors.username = "Username already exists";
+        }
+        if (user.email === req.body.email) {
+          errors.email = "Email already in use";
+        }
         return res.status(400).json(errors);
       } else {
         const newUser = new User({
@@ -55,7 +57,10 @@ router.post('/register', (req, res) => {
                   });
                 });
               })
-              .catch(err => console.log(err));
+              .catch(err => {
+                console.log(err);
+                return res.status(400).json(err);
+              });
           })
         })
       }

@@ -3,18 +3,27 @@ import React from 'react';
 class SessionForm extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       username: '',
       email: '',
       password: '',
       password2: ''
     };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate() {
+    if (this.props.session.id) {
+      this.props.history.push("/");
+    };
   }
 
   componentWillUnmount() {
     this.props.clearErrors();
   }
+
 
   update(field) {
     if (this.sessionSubmit) {
@@ -42,6 +51,7 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user);
+    window.scrollTo(0, 0);
   }
 
   renderErrors() {

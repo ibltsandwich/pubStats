@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import { registerUser, clearErrors } from '../../util/session_api_util';
 import SessionForm from './session_form';
 
-const mapStateToProps = ({ errors }) => {
+const mapStateToProps = ({ session, errors }) => {
   return {
     errors: Object.values(errors),
     formType: 'Register',
     navLink: <Link to="/login" className="session-switch">Already have an account? Log-in instead</Link>,
-    message: "Create an account"
+    message: "Create an account",
+    session
   };
 };
 

@@ -33,7 +33,7 @@
   color: white;
   height: 100%;
   min-width: 50px;
-  padding: 0 50px;
+  padding: 0 30px;
   transition: background .3s ease-in;
   display: flex;
   align-items: center;
