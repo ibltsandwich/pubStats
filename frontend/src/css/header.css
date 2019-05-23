@@ -50,6 +50,39 @@
   text-decoration: none;
 }
 
+.site-header-current-user {
+  height: 100%;
+  max-width: 120px;
+  min-width: 120px;
+  position: relative;
+}
+
+.site-header-current-user:hover {
+  background: #d69500;
+  cursor: pointer;
+}
+
+.site-header-current-user h1 {
+  margin: auto 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.user-dropdown {
+  position: absolute;
+  height: 200px;
+  width: 110px;
+  background: white;
+  color: black;
+  bottom: -200px;
+  display: none;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media screen and (max-width: 500px) {
   .site-header {
     height: 13vw;
@@ -67,5 +100,22 @@
     font-size: 4vw;
     padding: 0 3vw;
     min-width: 15vw;
+  }
+
+  .site-header-current-user {
+    min-width: 30vw;
+    max-width: 30vw;
+  }
+
+  .site-header-current-user h1 {
+    font-size: 5vw;
+  }
+
+  .user-dropdown {
+    height: 30vw;
+    width: 25vw;
+    bottom: -30vw;
+    font-size: 4vw;
+    text-align: center;
   }
 }

@@ -73,6 +73,8 @@ class SessionForm extends React.Component {
               value={this.state.username}
               onChange={this.update('username')}
               className="session-input"
+              autoCorrect="off" 
+              autoCapitalize="none"
               required
             />
           </label>
@@ -85,6 +87,8 @@ class SessionForm extends React.Component {
               value={this.state.email}
               onChange={this.update('email')}
               className="session-input"
+              autoCorrect="off" 
+              autoCapitalize="none"
               required
             />
           </label>
