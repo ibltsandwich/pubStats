@@ -1,5 +1,6 @@
 @import url("reset.css");
 @import url("header.css");
+@import url("home.css");
 @import url("session.css");
 
 /* html {
@@ -7,5 +8,6 @@
 } */
 
 body {
-  background: linear-gradient(to right, #29322e 50%, #3e4440);
+  background: linear-gradient(70deg, #29322e, #343b3a 55%, #505852);
+  height: -webkit-fill-available;
 }

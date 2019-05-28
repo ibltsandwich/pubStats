@@ -13,18 +13,18 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.sendFile('index.html', { root: __dirname }));
 app.use('/public', express.static(__dirname + '/public'));
 
 mongoose
-  .connect(db)
-  .then(() => console.log("Connected to MongoDB successfully"))
-  .catch(err => console.log(err));
+.connect(db)
+.then(() => console.log("Connected to MongoDB successfully"))
+.catch(err => console.log(err));
 
 app.use("/api/users", users);
 app.use("/api/matches", matches);
 
 app.use(passport.initialize());
+app.get("/", (req, res) => res.sendFile('index.html', { root: __dirname }));
 
 const port = process.env.PORT || 3000;
 
