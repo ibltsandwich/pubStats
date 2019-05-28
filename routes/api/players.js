@@ -7,7 +7,7 @@ const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
 router.get(`/players/`, (req, res) => {
   Player
-    .findOne({ playerId: req.body.playerName })
+    .findOne({ name: req.body.playerName })
     .then(player => {
       if (player) {
         return res.json({

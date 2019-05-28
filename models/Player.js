@@ -9,6 +9,7 @@ const PlayerSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   matches: {
     type: Object,
