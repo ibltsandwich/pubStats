@@ -16,8 +16,6 @@ router.get(`/players/`, (req, res) => {
       } else {
         fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.body.playerName}`, {
                 method: 'GET',
-                withCredentials: true,
-                credentials: 'include',
                 headers: {
                   'Authorization': `Bearer ${PUBG_API_KEY}`,
                   'Accept': 'application/json',
