@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-// const db = require('./config/keys').mongoURI;
 const db = process.env.MONGO_URI;
 const users = require("./routes/api/users");
+const players = require("./routes/api/players");
 const matches = require("./routes/api/matches");
 require('./config/passport')(passport);
 
@@ -22,6 +22,7 @@ mongoose
 
 app.use("/api/users", users);
 app.use("/api/matches", matches);
+app.use("/api/players", players);
 
 app.use(passport.initialize());
 app.get("/", (req, res) => res.sendFile('index.html', { root: __dirname }));

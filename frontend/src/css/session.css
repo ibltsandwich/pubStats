@@ -61,7 +61,7 @@
 
 .session-input:focus {
   background: linear-gradient(to bottom, #48483e, #5f5f5a);
-    border-image: linear-gradient(to bottom, #ffb200, #fee659) 1 stretch;
+  border-image: linear-gradient(to bottom, #ffb200, #fee659) 1 stretch;
 }
 
 .session-errors-list {

@@ -36,6 +36,6 @@ const MatchSchema = new Schema({
     type: Date, 
     default: Date.now 
   }
-})
+});
 
 module.exports = Match = mongoose.model('matches', MatchSchema);

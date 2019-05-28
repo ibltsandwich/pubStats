@@ -46,8 +46,7 @@ router.post('/register', (req, res) => {
                 const payload = { id: user.id, username: user.username };
 
                 jwt.sign(
-                  payload, 
-                  // keys.secretOrKey, 
+                  payload,  
                   process.env.SECRET_OR_KEY,
                   { expiresIn: 7200 }, 
                   (err, token) => {
