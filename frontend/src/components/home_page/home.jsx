@@ -56,7 +56,7 @@ class Home extends React.Component {
     return(
       <>
         <h1 className="splash-logo">pubStats</h1>
-        <form className="home-player-search" onSubmit={this.handleSubmit}>
+        <form className="home-player-search" onSubmit={this.handleSubmit} autoCorrect="off" autoCapitalize="none">
           <div>
             <label htmlFor="player-search-input">Player Search</label>
             <input 

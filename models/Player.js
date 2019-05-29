@@ -10,6 +10,10 @@ const PlayerSchema = new Schema({
     type: String,
     required: true,
   },
+  lowerCaseName: {
+    type: String,
+    required: true,
+  },
   matches: {
     type: Object,
   },

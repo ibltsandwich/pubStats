@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPlayer } from '../../actions/player_actions';
 
 const msp = (state, ownProps) => {
-  const player = state.entities.players[ownProps.match.params.playerName];
+  const player = state.entities.players[ownProps.match.params.playerName.toLowerCase()];
   return {
     player
   };
@@ -22,7 +22,7 @@ class PlayerStats extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayer(this.props.match.params.playerName);
+    this.props.fetchPlayer(this.props.match.params.playerName.toLowerCase());
   }
 
   render() {
