@@ -30,6 +30,7 @@
   height: 40px;
   width: 100%;
   padding: 0;
+  padding-right: 2vw;
   border: none;
   outline: none;
 }
@@ -53,4 +54,32 @@
 .player-search-submit:hover {
   cursor: pointer;
   background: #d69500;
+}
+
+@media screen and (max-width: 700px) {
+  .splash-logo {
+    font-size: 10vw;
+    margin-top: 15vw;
+  }
+
+  .home-player-search {
+    margin: 3vw auto;
+    width: 85vw;
+  }
+
+  .home-player-search div {
+    padding: 1.5vw 2vw;
+  }
+
+  .player-search-input {
+    font-size: 3.5vw;
+    height: 6vw;
+  }
+
+  .player-search-submit {
+    font-size: 4.5vw;
+    height: 6vw;
+    padding: 0 1.5vw;
+  }
+  
 }

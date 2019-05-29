@@ -6,17 +6,15 @@ const Player = require('../../models/Player');
 const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
 router.get(`/:playerName`, (req, res) => {
-  console.log(req);
   Player
-    .findOne({ name: req.body.playerName })
+    .findOne({ name: req.params.playerName })
     .then(player => {
       if (player) {
-        console.log(player);
         return res.json({
           player
         })
       } else {
-        fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.body.playerName}`, {
+        fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.params.playerName}`, {
                 method: 'GET',
                 headers: {
                   'Authorization': `Bearer ${PUBG_API_KEY}`,

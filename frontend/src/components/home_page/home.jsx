@@ -46,8 +46,10 @@ class Home extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const playerName = this.state.playerName;
-    this.props.fetchPlayer(playerName)
-      .then(this.props.history.push(`/players/${playerName}`));
+    // this.props.fetchPlayer(playerName)
+      // .then(
+        this.props.history.push(`/players/${playerName}`)
+        // );
   }
 
   render() {

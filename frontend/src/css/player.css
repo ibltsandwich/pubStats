@@ -1,0 +1,43 @@
+.player-header {
+  width: 100%;
+  margin: 50px;
+}
+
+.player-header h1 {
+  font-family: 'Teko';
+  font-size: 50px;
+  color: white;
+}
+
+.player-header h3 {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: white;
+}
+
+#player-match {
+  font-family: 'Teko';
+  color: white;
+  font-size: 28px;
+  margin-left: 50px;
+  padding: 5px 0;
+}
+
+@media screen and (max-width: 700px) {
+  .player-header {
+    margin: 7.2vw;
+  }
+  
+  .player-header h1 {
+    font-size: 7.1vw;
+  }
+
+  .player-header h3 {
+    font-size: 2vw;
+  }
+
+  #player-match {
+    margin-left: 7.2vw;
+    font-size: 4vw;
+  }
+}

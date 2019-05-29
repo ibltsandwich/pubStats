@@ -8,7 +8,7 @@ const playersReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_PLAYER:
-      return merge({}, newState, action.payload);
+      return merge({}, newState, action.payload.data);
     default:
       return state;
   };
