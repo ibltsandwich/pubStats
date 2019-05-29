@@ -5,11 +5,13 @@ const fetch = require('node-fetch');
 const Player = require('../../models/Player');
 const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
-router.get(`/players/`, (req, res) => {
+router.get(`/:playerName`, (req, res) => {
+  console.log(req);
   Player
     .findOne({ name: req.body.playerName })
     .then(player => {
       if (player) {
+        console.log(player);
         return res.json({
           player
         })
@@ -32,7 +34,10 @@ router.get(`/players/`, (req, res) => {
               })
               newPlayer
                 .save()
-                .then(player => res.json(player))
+                .then(player => res.json({player}))
+                .catch(err => {
+                  return res.status(400).json(err);
+                });
             })
       }
     })

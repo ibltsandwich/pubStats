@@ -1,18 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { fetchPlayer } from '../../actions/player_actions';
+
 const msp = state => {
   return {};
 };
 
 const mdp = dispatch => {
-  return {};
+  return {
+    fetchPlayer: playerName => dispatch(fetchPlayer(playerName))
+  };
 }
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {playerName: ''}
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
 
   update(field) {
@@ -37,11 +43,18 @@ class Home extends React.Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const playerName = this.state.playerName;
+    this.props.fetchPlayer(playerName)
+      .then(this.props.history.push(`/players/${playerName}`));
+  }
+
   render() {
     return(
       <>
         <h1 className="splash-logo">pubStats</h1>
-        <form className="home-player-search">
+        <form className="home-player-search" onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="player-search-input">Player Search</label>
             <input 
