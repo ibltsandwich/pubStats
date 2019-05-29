@@ -11,7 +11,7 @@ router.get(`/:playerName`, (req, res) => {
     .then(player => {
       if (player) {
         return res.json({
-          player
+          [player.name]: player
         })
       } else {
         fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.params.playerName}`, {

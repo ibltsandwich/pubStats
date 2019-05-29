@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import { fetchPlayer } from '../../actions/player_actions';
 
-const msp = state => {
-  const player = state.entities.players.player;
+const msp = (state, ownProps) => {
+  const player = state.entities.players[ownProps.match.params.playerName];
   return {
     player
   };
