@@ -64,7 +64,11 @@ class PlayerStats extends React.Component {
     if(this.props.player) {
       const { player } = this.props;
       const updated = new Date(Date.parse(player.time));
-      const matchHistory = Object.values(this.state).map((match,idx) => {
+      const sortedHistory = Object.values(this.state).sort((a, b) => 
+        new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
+      )
+
+      const matchHistory = sortedHistory.map((match,idx) => {
         const gameDate = new Date(match.attributes.createdAt).toLocaleString();
         const survivalMinutes = Math.floor(match.stats.timeSurvived / 60);
         const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
@@ -77,7 +81,7 @@ class PlayerStats extends React.Component {
               <h2>Game Mode: {match.attributes.gameMode.toUpperCase()}</h2>
             </div>
             <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
-            <h3>Time Survived: {survivalMinutes + ":" + survivalSeconds}</h3>
+            <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
             <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
             <span>Kills: {match.stats.kills}</span>
           </li>
