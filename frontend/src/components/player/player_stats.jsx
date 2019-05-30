@@ -44,6 +44,7 @@ class PlayerStats extends React.Component {
             const matchInfo = {};
             matchInfo.id = matchData.data.id;
             matchInfo.attributes = matchData.data.attributes;
+            matchInfo.rosters = matchData.data.relationships.rosters.data;
 
             for (let i = 0; i < matchData.included.length; i += 1) {
               const item = matchData.included[i];
@@ -75,6 +76,7 @@ class PlayerStats extends React.Component {
               <h2>Played: {gameDate}</h2>
               <h2>Game Mode: {match.attributes.gameMode.toUpperCase()}</h2>
             </div>
+            <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
             <h3>Time Survived: {survivalMinutes + ":" + survivalSeconds}</h3>
             <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
             <span>Kills: {match.stats.kills}</span>
