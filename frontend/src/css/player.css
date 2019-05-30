@@ -44,15 +44,19 @@
     margin: 7vw 10vw;
   }
   .player-header h1 {
-    font-size: 8.5vw;
+    font-size: 12vw;
   }
 
   .player-header h3 {
-    font-size: 2.5vw;
+    font-size: 3vw;
+  }
+
+  .player-match-history-list {
+    margin-top: 6vw;
   }
 
   #player-match {
-    font-size: 4vw;
+    font-size: 4.3vw;
     margin: 4vw 0;
     padding: 4vw;
   }

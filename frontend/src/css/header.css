@@ -85,7 +85,7 @@
 
 @media screen and (max-width: 700px) {
   .site-header {
-    height: 10.7vw;
+    height: 15vw;
   }
 
   .site-header .home-link {
@@ -93,11 +93,11 @@
   }
   
   .site-header .home-link section .logo {
-    font-size: 6vw;
+    font-size: 8vw;
   }
   
   .site-header .session-buttons li {
-    font-size: 4vw;
+    font-size: 5vw;
     padding: 0 4.3vw;
     min-width: 15vw;
   }

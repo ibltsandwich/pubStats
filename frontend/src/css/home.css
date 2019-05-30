@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 700px) {
   .splash-logo {
-    font-size: 10vw;
+    font-size: 15vw;
     margin-top: 15vw;
   }
 
@@ -72,13 +72,13 @@
   }
 
   .player-search-input {
-    font-size: 3.5vw;
-    height: 6vw;
+    font-size: 5vw;
+    height: 8vw;
   }
 
   .player-search-submit {
-    font-size: 4.5vw;
-    height: 6vw;
+    font-size: 6vw;
+    height: 8vw;
     padding: 0 1.5vw;
   }
   
