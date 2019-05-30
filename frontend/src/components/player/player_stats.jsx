@@ -66,7 +66,7 @@ class PlayerStats extends React.Component {
       const updated = new Date(Date.parse(player.time));
       const sortedHistory = Object.values(this.state).sort((a, b) => 
         new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
-      )
+      ).slice(0, 29);
 
       const matchHistory = sortedHistory.map((match,idx) => {
         const gameDate = new Date(match.attributes.createdAt).toLocaleString();
