@@ -97,7 +97,7 @@ class PlayerStats extends React.Component {
           )
         });
       } else {
-        matchHistory = <h1>Loading</h1>
+        matchHistory = <h1 className="match-history-loading">Loading...</h1>
       }
 
       return(
@@ -118,7 +118,7 @@ class PlayerStats extends React.Component {
       )
     } else {
       return(
-        <h1>Loading</h1>
+        <h1> </h1>
       )
     }
   }
