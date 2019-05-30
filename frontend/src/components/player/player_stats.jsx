@@ -22,7 +22,7 @@ class PlayerStats extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { loading: true, matches: {} };
   }
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (Object.values(this.state).length === 0) {
+    if (Object.values(this.state.matches).length === 0) {
       this.props.player.matches.data.forEach(match => {
         fetch(API + match.id , {
                 method: 'GET',
@@ -51,12 +51,19 @@ class PlayerStats extends React.Component {
               if (item.type === "participant") {
                 if (item.attributes.stats.playerId === this.props.player.playerId) {
                   matchInfo.stats = item.attributes.stats;
-                  return this.setState({ [match.id]: matchInfo })
+                  return this.setState(state => {
+                    return { matches: Object.assign(state.matches, {[match.id]: matchInfo})}
+                  });
                 }
               }
             }
           })
       })
+    }
+    if (this.state.loading) {
+      if (this.props.player.matches.data.length === Object.values(this.state.matches).length) {
+        this.setState({ loading: false });
+      }
     }
   }
 
@@ -64,29 +71,34 @@ class PlayerStats extends React.Component {
     if(this.props.player) {
       const { player } = this.props;
       const updated = new Date(Date.parse(player.time));
-      const sortedHistory = Object.values(this.state).sort((a, b) => 
+      const sortedHistory = Object.values(this.state.matches).sort((a, b) => 
         new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
       ).slice(0, 29);
+      let matchHistory;
 
-      const matchHistory = sortedHistory.map((match,idx) => {
-        const gameDate = new Date(match.attributes.createdAt).toLocaleString();
-        const survivalMinutes = Math.floor(match.stats.timeSurvived / 60);
-        const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
-        
-        return (
-          <li id="player-match" key={idx}>
-            {/* <h1>Match: {match.id}</h1> */}
-            <div className="match-attributes">
-              <h2>Played: {gameDate}</h2>
-              <h2>Game Mode: {match.attributes.gameMode.toUpperCase()}</h2>
-            </div>
-            <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
-            <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
-            <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
-            <span>Kills: {match.stats.kills}</span>
-          </li>
-        )
-      });
+      if (!this.state.loading) {
+        matchHistory = sortedHistory.map((match,idx) => {
+          const gameDate = new Date(match.attributes.createdAt).toLocaleString();
+          const survivalMinutes = Math.floor(match.stats.timeSurvived / 60);
+          const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
+          
+          return (
+            <li id="player-match" key={idx}>
+              {/* <h1>Match: {match.id}</h1> */}
+              <div className="match-attributes">
+                <h2>Played: {gameDate}</h2>
+                <h2>Game Mode: {match.attributes.gameMode.toUpperCase()}</h2>
+              </div>
+              <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
+              <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
+              <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
+              <span>Kills: {match.stats.kills}</span>
+            </li>
+          )
+        });
+      } else {
+        matchHistory = <h1>Loading</h1>
+      }
 
       return(
         <div className="player-stats-container">
