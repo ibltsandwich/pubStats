@@ -1,43 +1,59 @@
+.player-stats-container {
+  margin: 50px 70px;
+}
+
 .player-header {
   width: 100%;
-  margin: 50px;
 }
 
 .player-header h1 {
   font-family: 'Teko';
-  font-size: 50px;
+  font-size: 60px;
   color: white;
 }
 
 .player-header h3 {
   font-family: 'Roboto';
-  font-size: 14px;
+  font-size: 18px;
   color: white;
+}
+
+.player-match-history-list {
+  margin-top: 50px;
 }
 
 #player-match {
   font-family: 'Teko';
-  color: white;
+  background: #e1e4e3;
+  color: black;
   font-size: 28px;
-  margin-left: 50px;
-  padding: 5px 0;
+  margin: 30px 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.match-attributes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 700px) {
-  .player-header {
-    margin: 7.2vw;
+  .player-stats-container {
+    margin: 7vw 10vw;
   }
-  
   .player-header h1 {
-    font-size: 7.1vw;
+    font-size: 8.5vw;
   }
 
   .player-header h3 {
-    font-size: 2vw;
+    font-size: 2.5vw;
   }
 
   #player-match {
-    margin-left: 7.2vw;
     font-size: 4vw;
+    margin: 4vw 0;
+    padding: 4vw;
   }
 }

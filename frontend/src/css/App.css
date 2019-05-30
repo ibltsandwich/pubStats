@@ -10,5 +10,5 @@ html {
 }
 
 body {
-  background: linear-gradient(70deg, #29322e, #343b3a 55%, #505852);
+  background: linear-gradient(to right, #29322e, #343b3a 55%, #505852);
 }
