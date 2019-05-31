@@ -81,18 +81,23 @@ class PlayerStats extends React.Component {
           const gameDate = new Date(match.attributes.createdAt).toLocaleString();
           const survivalMinutes = Math.floor(match.stats.timeSurvived / 60);
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
-          
+
           return (
             <li id="player-match" key={idx}>
               {/* <h1>Match: {match.id}</h1> */}
               <div className="match-attributes">
-                <h2>Played: {gameDate}</h2>
-                <h2>Game Mode: {match.attributes.gameMode.toUpperCase()}</h2>
+                <h2>{gameDate}</h2>
+                <h2>{match.attributes.gameMode.toUpperCase()}</h2>
               </div>
-              <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
-              <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
-              <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
-              <span>Kills: {match.stats.kills}</span>
+              <br/>
+              <div className="player-attributes">
+                <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
+                <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
+              </div>
+              <div className="player-stats">
+                <span>Kills: {match.stats.kills}</span>
+                <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
+              </div>
             </li>
           )
         });
