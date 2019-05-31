@@ -84,6 +84,10 @@
     padding: 4vw;
   }
 
+  #player-match div {
+    flex-direction: column;
+  }
+
   .match-attributes {
     font-size: 4.5vw;
   }
