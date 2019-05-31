@@ -36,7 +36,7 @@
 
 #player-match div {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: space-between;
   line-height: 1.5em;
 }
@@ -85,18 +85,21 @@
   }
 
   #player-match div {
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   .match-attributes {
+    flex-direction: row;
     font-size: 4.5vw;
   }
 
   .player-attributes {
+    flex-direction: column;
     font-size: 4vw;
   }
 
   .player-stats {
+    flex-direction: column;
     font-size: 4vw;
   }
 }
