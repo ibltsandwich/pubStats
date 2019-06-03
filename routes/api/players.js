@@ -7,7 +7,7 @@ const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
 router.get(`/:playerName`, (req, res) => {
   Player
-    .findOne({ lowerCaseName: req.params.playerName })
+    .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
     .then(player => {
       if (player) {
         return res.json({
@@ -25,12 +25,13 @@ router.get(`/:playerName`, (req, res) => {
               return res.json();
             })
             .then(player => {
+              if (player.errors) { return res.status(404).json(player.errors) }
               const newPlayer = new Player({
                 playerId: player.data[0].id,
                 name: player.data[0].attributes.name,
                 lowerCaseName: player.data[0].attributes.name.toLowerCase(),
                 matches: player.data[0].relationships.matches,
-              })
+              });
               newPlayer
                 .save()
                 .then(player => res.json({[player.name.toLowerCase()]: player}))
@@ -39,7 +40,6 @@ router.get(`/:playerName`, (req, res) => {
                 });
             })
             .catch(err => {
-              console.log(err)
               return res.status(404).json(err);
             })
       }

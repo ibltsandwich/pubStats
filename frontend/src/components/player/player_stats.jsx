@@ -7,8 +7,10 @@ const API = 'https://api.pubg.com/shards/steam/matches/';
 
 const msp = (state, ownProps) => {
   const player = state.entities.players[ownProps.match.params.playerName.toLowerCase()];
+  const errors = state.errors;
   return {
-    player
+    player,
+    errors
   };
 };
 
@@ -26,48 +28,58 @@ class PlayerStats extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPlayer(this.props.match.params.playerName.toLowerCase());
+    this.props.fetchPlayer(this.props.match.params.playerName);
   }
 
   componentDidUpdate(oldProps) {
-    if (Object.values(this.state.matches).length === 0) {
-      this.props.player.matches.data.forEach(match => {
-        fetch(API + match.id , {
-                method: 'GET',
-                headers: {
-                  'Accept': 'application/json'
-                },
-          })
-          .then(response => response.json())
-          // .then(data => this.setState({ [match.id]: data }))
-          .then(matchData => {
-            const matchInfo = {};
-            matchInfo.id = matchData.data.id;
-            matchInfo.attributes = matchData.data.attributes;
-            matchInfo.rosters = matchData.data.relationships.rosters.data;
+    if (this.props.errors.length === 0) {
+      if (Object.values(this.state.matches).length === 0) {
+        this.props.player.matches.data.forEach(match => {
+          fetch(API + match.id , {
+                  method: 'GET',
+                  headers: {
+                    'Accept': 'application/json'
+                  },
+            })
+            .then(response => response.json())
+            // .then(data => this.setState({ [match.id]: data }))
+            .then(matchData => {
+              const matchInfo = {};
+              matchInfo.id = matchData.data.id;
+              matchInfo.attributes = matchData.data.attributes;
+              matchInfo.rosters = matchData.data.relationships.rosters.data;
 
-            for (let i = 0; i < matchData.included.length; i += 1) {
-              const item = matchData.included[i];
-              if (item.type === "participant") {
-                if (item.attributes.stats.playerId === this.props.player.playerId) {
-                  matchInfo.stats = item.attributes.stats;
-                  return this.setState(state => {
-                    return { matches: Object.assign(state.matches, {[match.id]: matchInfo})}
-                  });
+              for (let i = 0; i < matchData.included.length; i += 1) {
+                const item = matchData.included[i];
+                if (item.type === "participant") {
+                  if (item.attributes.stats.playerId === this.props.player.playerId) {
+                    matchInfo.stats = item.attributes.stats;
+                    return this.setState(state => {
+                      return { matches: Object.assign(state.matches, {[match.id]: matchInfo})}
+                    });
+                  }
                 }
               }
-            }
-          })
-      })
-    }
-    if (this.state.loading) {
-      if (this.props.player.matches.data.length === Object.values(this.state.matches).length) {
-        this.setState({ loading: false });
+            })
+        })
       }
-    }
+      if (this.state.loading) {
+        if (this.props.player.matches.data.length === Object.values(this.state.matches).length) {
+          this.setState({ loading: false });
+        }
+      }
+    } 
   }
 
   render() {
+    if (this.props.errors.length > 0) {
+      return (
+        <>
+          <h1>{this.props.errors[0].title}</h1>
+          <h2>{this.props.errors[0].detail}</h2>
+        </>
+      )
+    }
     if(this.props.player) {
       const { player } = this.props;
       const updated = new Date(Date.parse(player.time));
