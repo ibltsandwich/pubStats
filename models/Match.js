@@ -2,19 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MatchSchema = new Schema({
-  gameMode: {
+  matchId: {
     type: String,
     required: true
   },
-  mapName: {
-    type: String,
-  },
-  isCustomMatch: {
-    type: Boolean,
-  },
-  shardId: {
-    type: String,
-    required: true
+  attributes: {
+    type: Object,
+    required: true,
   },
   duration: {
     type: Number,

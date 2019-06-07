@@ -62,8 +62,8 @@ class PlayerStats extends React.Component {
                   }
                 }
               }
-            })
-        })
+            });
+        });
       }
       if (this.state.loading) {
         if (this.props.player.matches.data.length === Object.values(this.state.matches).length) {
