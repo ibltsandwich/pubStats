@@ -17,6 +17,14 @@ const PlayerSchema = new Schema({
   matches: {
     type: Object,
   },
+  createdAt: {
+    type: String,
+    required: true,
+  },
+  updatedAt: {
+    type: String,
+    required: true,
+  },
   time: {
     type: Date,
     default: Date.now,

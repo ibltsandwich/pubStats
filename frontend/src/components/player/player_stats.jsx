@@ -88,7 +88,7 @@ class PlayerStats extends React.Component {
     }
     if(this.props.player) {
       const { player } = this.props;
-      const updated = new Date(Date.parse(player.time));
+      const updated = new Date(Date.parse(player.updatedAt));
       const sortedHistory = Object.values(this.state.matches).sort((a, b) => 
         new Date(b.attributes.createdAt) - new Date(a.attributes.createdAt)
       ).slice(0, 29);

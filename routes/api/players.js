@@ -62,8 +62,9 @@ router.get(`/:playerName`, (req, res) => {
                 playerId: player.data[0].id,
                 name: player.data[0].attributes.name,
                 lowerCaseName: player.data[0].attributes.name.toLowerCase(),
-                // matches: playerMatches,
-                matches: player.data[0].relationships.matches
+                createdAt: player.data[0].attributes.createdAt,
+                updatedAt: player.data[0].attributes.updatedAt,
+                matches: player.data[0].relationships.matches,
               });
 
               newPlayer
@@ -80,14 +81,14 @@ router.get(`/:playerName`, (req, res) => {
     });
 });
 
-router.patch(`:/playerName`, (req, res) => {
-  Player
-    .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
-    .then(player => {
-      if (player) {
-        player.matches = req.body.playerMatches;
-      }
-    })
-})
+// router.patch(`:/playerName`, (req, res) => {
+//   Player
+//     .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
+//     .then(player => {
+//       if (player) {
+//         player.matches = req.body.playerMatches;
+//       }
+//     })
+// })
 
 module.exports = router;
