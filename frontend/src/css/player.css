@@ -56,6 +56,29 @@
   font-weight: 500;
 }
 
+.player-errors {
+  color: whitesmoke;
+  margin: 50px auto;
+  width: 70vw;
+}
+
+.player-error-title {
+  font-family: 'Teko';
+  font-size: 60px;
+}
+
+.player-error-detail {
+  font-family: 'Roboto';
+  font-size: 18px;
+}
+
+.match-history-loading {
+  font-family: 'Teko';
+  font-size: 40px;
+  text-align: center;
+  color: white;
+}
+
 @media screen and (max-width: 700px) {
   .player-stats-container {
     margin: 7vw auto;
@@ -102,11 +125,8 @@
     flex-direction: column;
     font-size: 4vw;
   }
-}
 
-.match-history-loading {
-  font-family: 'Teko';
-  font-size: 40px;
-  text-align: center;
-  color: white;
+  .match-history-loading {
+    font-size: 10vw;
+  }
 }

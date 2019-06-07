@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchPlayer } from '../../actions/player_actions';
+import { removeErrors } from '../../util/session_api_util';
 
 const API = 'https://api.pubg.com/shards/steam/matches/';
 
@@ -16,7 +17,8 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => {
   return {
-    fetchPlayer: playerName => dispatch(fetchPlayer(playerName))
+    fetchPlayer: playerName => dispatch(fetchPlayer(playerName)),
+    removeErrors: () => dispatch(removeErrors()),
   };
 }
 
@@ -71,13 +73,17 @@ class PlayerStats extends React.Component {
     } 
   }
 
+  componentWillUnmount() {
+    this.props.removeErrors();
+  }
+
   render() {
     if (this.props.errors.length > 0) {
       return (
-        <>
-          <h1>{this.props.errors[0].title}</h1>
-          <h2>{this.props.errors[0].detail}</h2>
-        </>
+        <div className="player-errors">
+          <h1 className="player-error-title">{this.props.errors[0].title}</h1>
+          <h2 className="player-error-detail">{this.props.errors[0].detail}</h2>
+        </div>
       )
     }
     if(this.props.player) {

@@ -6,6 +6,7 @@ const Player = require('../../models/Player');
 const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
 router.get(`/:playerName`, (req, res) => {
+  console.log(stringPermutations(req.params.playerName));
   Player
     .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
     .then(player => {
@@ -32,6 +33,7 @@ router.get(`/:playerName`, (req, res) => {
                 lowerCaseName: player.data[0].attributes.name.toLowerCase(),
                 matches: player.data[0].relationships.matches,
               });
+              
               newPlayer
                 .save()
                 .then(player => res.json({[player.name.toLowerCase()]: player}))
