@@ -37,7 +37,7 @@ class PlayerStats extends React.Component {
     if (this.props.errors.length === 0) {
       if (Object.values(this.state.matches).length === 0) {
         this.props.player.matches.data.forEach(match => {
-          fetch(API + match.id , {
+          fetch(API + match.id, {
                   method: 'GET',
                   headers: {
                     'Accept': 'application/json'
@@ -57,11 +57,11 @@ class PlayerStats extends React.Component {
                   if (item.attributes.stats.playerId === this.props.player.playerId) {
                     matchInfo.stats = item.attributes.stats;
                     return this.setState(state => {
-                      return { matches: Object.assign(state.matches, {[match.id]: matchInfo})}
+                      return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
                     });
-                  }
-                }
-              }
+                  };
+                };
+              };
             });
         });
       }
