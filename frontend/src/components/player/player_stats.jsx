@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPlayer } from '../../actions/player_actions';
 import { removeErrors } from '../../util/session_api_util';
 
-const API = 'https://api.pubg.com/shards/steam/matches/';
+const API = 'https://api.pubg.com/shards/psn/matches/';
 
 const msp = (state, ownProps) => {
   const player = state.entities.players[ownProps.match.params.playerName.toLowerCase()];
@@ -38,14 +38,14 @@ class PlayerStats extends React.Component {
       if (Object.values(this.state.matches).length === 0) {
         this.props.player.matches.data.forEach(match => {
           fetch(API + match.id, {
-                  mode: 'cors',
                   method: 'GET',
                   headers: {
                     'Accept': 'application/vnd.api+json',
                     
                   },
             })
-            .then(response => response.json())
+            .then(response => {
+              return response.json()})
             // .then(data => this.setState({ [match.id]: data }))
             .then(matchData => {
               const matchInfo = {};
@@ -64,7 +64,10 @@ class PlayerStats extends React.Component {
                   };
                 };
               };
-            });
+            })
+            .catch(err => {
+              debugger
+            })
         });
       }
       if (this.state.loading) {
