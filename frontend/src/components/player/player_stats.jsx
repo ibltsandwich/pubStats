@@ -38,9 +38,11 @@ class PlayerStats extends React.Component {
       if (Object.values(this.state.matches).length === 0) {
         this.props.player.matches.data.forEach(match => {
           fetch(API + match.id, {
+                  mode: 'cors',
                   method: 'GET',
                   headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    
                   },
             })
             .then(response => response.json())
