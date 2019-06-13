@@ -27,6 +27,8 @@ class PlayerStats extends React.Component {
     super(props);
 
     this.state = { loading: true, matches: {} };
+
+    this.toggleMatch = this.toggleMatch.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +38,7 @@ class PlayerStats extends React.Component {
   componentDidUpdate(oldProps) {
     if (this.props.errors.length === 0) {
       if (Object.values(this.state.matches).length === 0) {
-        this.props.player.matches.data.forEach(match => {
+        Object.values(this.props.player.matches).forEach(match => {
           fetch(API + match.id, {
                   method: 'GET',
                   headers: {
@@ -64,14 +66,11 @@ class PlayerStats extends React.Component {
                   };
                 };
               };
-            })
-            .catch(err => {
-              debugger
-            })
+            });
         });
       }
       if (this.state.loading) {
-        if (this.props.player.matches.data.length === Object.values(this.state.matches).length) {
+        if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
           this.setState({ loading: false });
         }
       }
@@ -80,6 +79,10 @@ class PlayerStats extends React.Component {
 
   componentWillUnmount() {
     this.props.removeErrors();
+  }
+
+  toggleMatch(e) {
+    this.setState({[e.currentTarget.id]: !this.state[e.currentTarget.id]});
   }
 
   render() {
@@ -106,27 +109,33 @@ class PlayerStats extends React.Component {
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
 
           return (
-            <li id="player-match" key={idx}>
-              {/* <h1>Match: {match.id}</h1> */}
+            <li className="player-match" id={idx} key={idx} onClick={this.toggleMatch}>
               <div className="match-attributes">
                 <h2>{gameDate}</h2>
                 <h2>{match.attributes.gameMode.toUpperCase()}</h2>
               </div>
-              <br/>
-              <div className="player-attributes">
-                <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
-                <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
-              </div>
-              <div className="player-stats">
-                <span>Kills: {match.stats.kills}</span>
-                <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
-              </div>
+              {this.state[idx] ? 
+                <section className="stats-dropdown">
+                  <br/>
+                  <div className="player-attributes">
+                    <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
+                    <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
+                  </div>
+                  <div className="player-stats">
+                    <span>Kills: {match.stats.kills}</span>
+                    <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
+                  </div>
+                </section> 
+                :
+                null}
             </li>
           )
         });
       } else {
         matchHistory = <h1 className="match-history-loading">Loading...</h1>
       }
+
+
 
       return(
         <div className="player-stats-container">

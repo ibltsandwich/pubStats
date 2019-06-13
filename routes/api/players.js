@@ -27,13 +27,19 @@ router.get(`/:playerName`, (req, res) => {
             .then(player => {
               if (player.errors) { return res.status(404).json(player.errors) }
 
+              playerMatches = {};
+
+              player.data[0].relationships.matches.data.forEach(match => {
+                playerMatches[match.id] = match;
+              });
+
               const newPlayer = new Player({
                 playerId: player.data[0].id,
                 name: player.data[0].attributes.name,
                 lowerCaseName: player.data[0].attributes.name.toLowerCase(),
                 createdAt: player.data[0].attributes.createdAt,
                 updatedAt: player.data[0].attributes.updatedAt,
-                matches: player.data[0].relationships.matches,
+                matches: playerMatches,
               });
 
               newPlayer
@@ -50,14 +56,14 @@ router.get(`/:playerName`, (req, res) => {
     });
 });
 
-// router.patch(`:/playerName`, (req, res) => {
-//   Player
-//     .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
-//     .then(player => {
-//       if (player) {
-//         player.matches = req.body.playerMatches;
-//       }
-//     })
-// })
+router.patch(`:/playerName`, (req, res) => {
+  Player
+    .findOne({ lowerCaseName: req.params.playerName.toLowerCase() })
+    .then(player => {
+      if (player) {
+        player.matches = req.body.playerMatches;
+      }
+    })
+})
 
 module.exports = router;

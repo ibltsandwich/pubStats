@@ -23,7 +23,7 @@
   margin-top: 50px;
 }
 
-#player-match {
+.player-match {
   font-family: 'Montserrat';
   background: #e1e4e3;
   color: black;
@@ -34,9 +34,8 @@
   flex-direction: column;
 }
 
-#player-match div {
+.player-match div {
   display: flex;
-  /* flex-direction: row; */
   justify-content: space-between;
   line-height: 1.5em;
 }
@@ -101,13 +100,13 @@
     margin-top: 6vw;
   }
 
-  #player-match {
+  .player-match {
     font-size: 4.3vw;
     margin: 4vw 0;
     padding: 4vw;
   }
 
-  #player-match div {
+  .player-match div {
     /* flex-direction: column; */
   }
 
