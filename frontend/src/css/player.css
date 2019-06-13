@@ -32,6 +32,8 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  user-select: none;
 }
 
 .player-match div {
@@ -45,6 +47,10 @@
   font-weight: 700;
 }
 
+.match-attributes h2 {
+  font-size: 18px;
+}
+
 .player-attributes {  
   font-size: 20px;
   font-weight: 600;
@@ -53,6 +59,19 @@
 .player-stats {
   font-size: 20px;
   font-weight: 500;
+}
+
+.stats-dropdown {
+  animation-name: slide-down;
+  animation-duration: .2s;
+  /* height: 100px;
+  transition: height 1s ease-in; */
+  overflow: hidden;
+}
+
+@keyframes slide-down {
+  from {height: 0}
+  to {height: 88px}
 }
 
 .player-errors {

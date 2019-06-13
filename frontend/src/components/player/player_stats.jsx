@@ -104,15 +104,18 @@ class PlayerStats extends React.Component {
 
       if (!this.state.loading) {
         matchHistory = sortedHistory.map((match,idx) => {
-          const gameDate = new Date(match.attributes.createdAt).toLocaleString();
+          const date = new Date(match.attributes.createdAt).toLocaleString();
           const survivalMinutes = Math.floor(match.stats.timeSurvived / 60);
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
+          const gameDate = date.split(",")[0];
+          const gameTime = date.split(",")[1];
 
           return (
             <li className="player-match" id={idx} key={idx} onClick={this.toggleMatch}>
               <div className="match-attributes">
-                <h2>{gameDate}</h2>
-                <h2>{match.attributes.gameMode.toUpperCase()}</h2>
+                <h1>{gameDate}</h1>
+                <h2>{gameTime}</h2>
+                <h3>{match.attributes.gameMode.toUpperCase()}</h3>
               </div>
               {this.state[idx] ? 
                 <section className="stats-dropdown">
