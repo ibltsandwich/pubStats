@@ -115,9 +115,11 @@ class PlayerStats extends React.Component {
     if (oldProps.location.pathname !== this.props.location.pathname) {
       const newState = { loading: true, matches: {} };
       Object.keys(this.state).forEach(key => {
-        if (key !== 'loading' || key !== 'matches'){
+        if (key === 'loading' || key === 'matches'){
+          null;
+        } else {
           newState[key] = false;
-        };
+        }
       });
       this.setState(newState, () => this.props.fetchPlayer(this.props.match.params.playerName));
     }
@@ -232,7 +234,6 @@ class PlayerStats extends React.Component {
       }
 
 
-
       return(
         <div className="player-stats-container">
           <header className="player-header">
@@ -251,7 +252,7 @@ class PlayerStats extends React.Component {
       )
     } else {
       return(
-        <h1> </h1>
+        <h1>Loading...</h1>
       )
     }
   }
