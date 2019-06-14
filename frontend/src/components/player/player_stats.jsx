@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import TeamStats from './team_stats';
+
 import { fetchPlayer } from '../../actions/player_actions';
 import { removeErrors } from '../../util/session_api_util';
 
@@ -29,6 +31,8 @@ class PlayerStats extends React.Component {
     this.state = { loading: true, matches: {} };
 
     this.toggleMatch = this.toggleMatch.bind(this);
+    this.showPlayerStats = this.showPlayerStats.bind(this);
+    this.showTeamStats = this.showTeamStats.bind(this);
   }
 
   componentDidMount() {
@@ -54,18 +58,51 @@ class PlayerStats extends React.Component {
               matchInfo.id = matchData.data.id;
               matchInfo.attributes = matchData.data.attributes;
               matchInfo.rosters = matchData.data.relationships.rosters.data;
+              let participantId;
+              let team;
+              const teamInfo = {};
 
               for (let i = 0; i < matchData.included.length; i += 1) {
                 const item = matchData.included[i];
+                const playerId = this.props.player.playerId;
+
                 if (item.type === "participant") {
-                  if (item.attributes.stats.playerId === this.props.player.playerId) {
+                  if (item.attributes.stats.playerId === playerId) {
+                    participantId = item.id
                     matchInfo.stats = item.attributes.stats;
-                    return this.setState(state => {
-                      return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
-                    });
                   };
                 };
               };
+
+              for (let i = 0; i < matchData.included.length; i += 1) {
+                const item = matchData.included[i];
+
+                if (item.type === "roster") {
+                  item.relationships.participants.data.forEach(member => {
+                    if (member.id === participantId) {
+                      team = item.relationships.participants.data;
+                    };
+                  });
+                };
+              };
+
+              team.forEach(member => {
+                for (let i = 0; i < matchData.included.length; i += 1) {
+                  const item = matchData.included[i];
+
+                  if (item.type === "participant") {
+                    if (item.id === member.id) {
+                      teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
+                    };
+                  };
+                };
+              });
+
+              matchInfo.team = teamInfo;
+
+              this.setState(state => {
+                return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
+              });
             });
         });
       }
@@ -83,14 +120,37 @@ class PlayerStats extends React.Component {
 
   toggleMatch(e) {
     this.setState({[e.currentTarget.id]: !this.state[e.currentTarget.id]});
+    this.setState({[`playerStats${e.currentTarget.id}`]: true});
+  }
+
+  showPlayerStats(e) {
+    e.stopPropagation();
+    this.setState({[`playerStats${e.currentTarget.id}`]: true});
+    this.setState({[`teamStats${e.currentTarget.id}`]: false});
+    this.playerButton.style.background = 'lightgray';
+    this.teamButton.style.background = '#e1e4e3';
+  }
+
+  showTeamStats(e) {
+    e.stopPropagation();
+    this.setState({[`playerStats${e.currentTarget.id}`]: false});
+    this.setState({[`teamStats${e.currentTarget.id}`]: true});
+    this.playerButton.style.background = '#e1e4e3';
+    this.teamButton.style.background = 'lightgray';
   }
 
   render() {
     if (this.props.errors.length > 0) {
+      // return (
+      //   <div className="player-errors">
+      //     <h1 className="player-error-title">{this.props.errors[0].title}</h1>
+      //     <h2 className="player-error-detail">{this.props.errors[0].detail}</h2>
+      //   </div>
+      // )
       return (
         <div className="player-errors">
-          <h1 className="player-error-title">{this.props.errors[0].title}</h1>
-          <h2 className="player-error-detail">{this.props.errors[0].detail}</h2>
+          <h1 className="player-error-title">Player Not Found</h1>
+          <h2 className="player-error-detail">The requested player could not be found</h2>
         </div>
       )
     }
@@ -118,17 +178,32 @@ class PlayerStats extends React.Component {
                 <h3>{match.attributes.gameMode.toUpperCase()}</h3>
               </div>
               {this.state[idx] ? 
-                <section className="stats-dropdown">
-                  <br/>
-                  <div className="player-attributes">
-                    <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
-                    <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
-                  </div>
-                  <div className="player-stats">
-                    <span>Kills: {match.stats.kills}</span>
-                    <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
-                  </div>
-                </section> 
+                <main className="stats-dropdown" onClick={e => e.stopPropagation()}>
+                  <header className="stats-dropdown-tabs">
+                    <div className="stats-dropdown-player-button" onClick={this.showPlayerStats} id={idx} ref={elem => this.playerButton = elem}>
+                      Your Stats
+                    </div>
+                    <div className="stats-dropdown-team-button" onClick={this.showTeamStats} id={idx} ref={elem => this.teamButton = elem}>
+                      Team Stats
+                    </div>
+                  </header>
+                  {this.state[`playerStats${idx}`] ? 
+                    <section className="stats-dropdown-player">
+                      <div className="player-attributes">
+                        <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
+                        <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
+                      </div>
+                      <div className="player-stats">
+                        <span>Kills: {match.stats.kills}</span>
+                        <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
+                      </div>
+                    </section> 
+                    :
+                    <section className="stats-dropdown-team">
+                      <TeamStats team={match.team} />
+                    </section>
+                  }
+                </main>
                 :
                 null}
             </li>

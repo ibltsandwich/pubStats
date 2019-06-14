@@ -29,7 +29,6 @@
   color: black;
   font-size: 28px;
   margin: 30px 0;
-  padding: 30px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -45,6 +44,7 @@
 .match-attributes {
   font-size: 24px;
   font-weight: 700;
+  padding: 30px;
 }
 
 .match-attributes h2 {
@@ -64,14 +64,76 @@
 .stats-dropdown {
   animation-name: slide-down;
   animation-duration: .2s;
-  /* height: 100px;
-  transition: height 1s ease-in; */
   overflow: hidden;
 }
 
 @keyframes slide-down {
   from {height: 0}
-  to {height: 88px}
+  to {height: 162px}
+}
+
+.stats-dropdown-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.stats-dropdown-player-button {
+  background: lightgray;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.stats-dropdown-player-button:hover {
+  cursor: pointer;
+  background: lightgray;
+}
+
+.stats-dropdown-team-button {
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.stats-dropdown-team-button:hover {
+  cursor: pointer;
+  background: lightgray;
+}
+
+.stats-dropdown-player {
+  background: lightgray;
+  padding: 30px;
+}
+
+.stats-dropdown-team {
+  background: lightgray;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.team-member-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.team-member-stats li {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-member-stats li span {
+  padding-top: 10px;
+}
+
+.team-member-stats h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.team-member-name {
+  font-weight: 500;
 }
 
 .player-errors {
