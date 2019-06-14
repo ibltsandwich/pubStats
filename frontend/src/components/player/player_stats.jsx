@@ -127,16 +127,16 @@ class PlayerStats extends React.Component {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: true});
     this.setState({[`teamStats${e.currentTarget.id}`]: false});
-    this.playerButton.style.background = 'lightgray';
-    this.teamButton.style.background = '#e1e4e3';
+    this[`playerButton${e.currentTarget.id}`].style.background = 'lightgray';
+    this[`teamButton${e.currentTarget.id}`].style.background = '#e1e4e3';
   }
 
   showTeamStats(e) {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: false});
     this.setState({[`teamStats${e.currentTarget.id}`]: true});
-    this.playerButton.style.background = '#e1e4e3';
-    this.teamButton.style.background = 'lightgray';
+    this[`playerButton${e.currentTarget.id}`].style.background = '#e1e4e3';
+    this[`teamButton${e.currentTarget.id}`].style.background = 'lightgray';
   }
 
   render() {
@@ -180,10 +180,10 @@ class PlayerStats extends React.Component {
               {this.state[idx] ? 
                 <main className="stats-dropdown" onClick={e => e.stopPropagation()}>
                   <header className="stats-dropdown-tabs">
-                    <div className="stats-dropdown-player-button" onClick={this.showPlayerStats} id={idx} ref={elem => this.playerButton = elem}>
+                    <div className="stats-dropdown-player-button" onClick={this.showPlayerStats} id={idx} ref={elem => this[`playerButton${idx}`] = elem}>
                       Your Stats
                     </div>
-                    <div className="stats-dropdown-team-button" onClick={this.showTeamStats} id={idx} ref={elem => this.teamButton = elem}>
+                    <div className="stats-dropdown-team-button" onClick={this.showTeamStats} id={idx} ref={elem => this[`teamButton${idx}`] = elem}>
                       Team Stats
                     </div>
                   </header>

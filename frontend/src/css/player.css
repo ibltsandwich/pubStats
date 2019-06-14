@@ -1,6 +1,7 @@
 .player-stats-container {
   margin: 50px auto;
   width: 70vw;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .player-header {
@@ -31,7 +32,6 @@
   margin: 30px 0;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   user-select: none;
 }
 
@@ -45,6 +45,10 @@
   font-size: 24px;
   font-weight: 700;
   padding: 30px;
+}
+
+.match-attributes:hover {
+  cursor: pointer;
 }
 
 .match-attributes h2 {
@@ -70,6 +74,10 @@
 @keyframes slide-down {
   from {height: 0}
   to {height: 162px}
+}
+
+.stats-dropdown section:hover {
+  cursor: default;
 }
 
 .stats-dropdown-tabs {
@@ -193,7 +201,7 @@
   }
 
   .match-attributes h2 {
-    font-size: 3.5vw;
+    font-size: 3.7vw;
   }
 
   .player-attributes {
@@ -217,8 +225,8 @@
   }
 
   .stats-dropdown-team {
-    font-size: 3vw;
-    padding: 4vw;
+    font-size: 3.5vw;
+    padding: 4vw 3vw;
   }
 
   .team-member-stats li span {
