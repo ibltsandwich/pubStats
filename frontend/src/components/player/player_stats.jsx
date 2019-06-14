@@ -113,7 +113,13 @@ class PlayerStats extends React.Component {
       }
     };
     if (oldProps.location.pathname !== this.props.location.pathname) {
-      this.setState({ loading: true, matches: {}, 0: false }, () => this.props.fetchPlayer(this.props.match.params.playerName));
+      const newState = { loading: true, matches: {} };
+      Object.keys(this.state).forEach(key => {
+        if (key !== 'loading' || key !== 'matches'){
+          newState[key] = false;
+        };
+      });
+      this.setState(newState, () => this.props.fetchPlayer(this.props.match.params.playerName));
     }
   }
 
