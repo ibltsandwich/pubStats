@@ -172,12 +172,21 @@ class PlayerStats extends React.Component {
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
           const gameDate = date.split(",")[0];
           const gameTime = date.split(",")[1];
+          let style;
+          if (match.stats.winPlace === 1) {
+            style = {borderImage: 'linear-gradient(to bottom, #7ab4698a, #3d9938a8) 1 stretch'};
+          } else if (match.stats.winPlace <= 10) {
+            style = {borderImage: 'linear-gradient(to bottom, #42c7f491, #5497c2de) 1 stretch'};
+          } else {
+            style = {borderImage: 'linear-gradient(to bottom, #f87f7f8f, #f62e3394) 1 stretch'};
+          };
 
           return (
-            <li className="player-match" id={idx} key={idx} onClick={this.toggleMatch}>
+            <li className="player-match" id={idx} key={idx} onClick={this.toggleMatch} style={style}>
               <div className="match-attributes">
                 <h1>{gameDate}</h1>
                 <h2>{gameTime}</h2>
+                <h1>{match.stats.winPlace + "/" + match.rosters.length}</h1>
                 <h3>{match.attributes.gameMode.toUpperCase()}</h3>
               </div>
               {this.state[idx] ? 
@@ -193,8 +202,8 @@ class PlayerStats extends React.Component {
                   {this.state[`playerStats${idx}`] ? 
                     <section className="stats-dropdown-player">
                       <div className="player-attributes">
-                        <h1>Win Place: {match.stats.winPlace + "/" + match.rosters.length}</h1>
                         <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
+                        <h1>Distance Traveled: {(match.stats.walkDistance + match.stats.swimDistance + match.stats.rideDistance).toFixed(2)}m</h1>
                       </div>
                       <div className="player-stats">
                         <span>Kills: {match.stats.kills}</span>
