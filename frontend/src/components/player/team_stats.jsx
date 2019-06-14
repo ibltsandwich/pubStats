@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 const TeamStats = props => {
   const kills = [];
   const name = [];
@@ -7,10 +9,17 @@ const TeamStats = props => {
   const assists = [];
 
   Object.values(props.team).map((member, idx) => {
-    name.push(<span>{member.name}</span>);
-    kills.push(<span>{member.kills}</span>);
-    damageDealt.push(<span>{member.damageDealt.toFixed(2)}</span>)
-    assists.push(<span>{member.assists}</span>)
+    if (props.player.name !== member.name) {
+      name.push(<span key={idx}><Link to={`/players/${member.name}`}>{member.name}</Link></span>);
+      kills.push(<span key={idx}>{member.kills}</span>);
+      damageDealt.push(<span key={idx}>{member.damageDealt.toFixed(2)}</span>)
+      assists.push(<span key={idx}>{member.assists}</span>)
+    } else {
+      name.push(<span key={idx} style={{fontWeight: '700'}}>{member.name}</span>);
+      kills.push(<span key={idx} style={{fontWeight: '700'}}>{member.kills}</span>);
+      damageDealt.push(<span key={idx} style={{fontWeight: '700'}}>{member.damageDealt.toFixed(2)}</span>)
+      assists.push(<span key={idx} style={{fontWeight: '700'}}>{member.assists}</span>)
+    };
   });
 
   return (

@@ -144,6 +144,16 @@
   font-weight: 500;
 }
 
+.team-member-name span a {
+  color: black;
+  text-decoration: none;
+}
+
+.team-member-name span a:hover {
+  text-decoration: underline;
+  color: #f2a900;
+}
+
 .player-errors {
   color: whitesmoke;
   margin: 50px auto;

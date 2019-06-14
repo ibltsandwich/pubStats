@@ -41,7 +41,7 @@ class PlayerStats extends React.Component {
 
   componentDidUpdate(oldProps) {
     if (this.props.errors.length === 0) {
-      if (Object.values(this.state.matches).length === 0) {
+      if (Object.values(this.state.matches).length === 0 && this.props.player) {
         Object.values(this.props.player.matches).forEach(match => {
           fetch(API + match.id, {
                   method: 'GET',
@@ -106,12 +106,15 @@ class PlayerStats extends React.Component {
             });
         });
       }
-      if (this.state.loading) {
+      if (this.state.loading && this.props.player) {
         if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
           this.setState({ loading: false });
         }
       }
-    } 
+    };
+    if (oldProps.location.pathname !== this.props.location.pathname) {
+      this.setState({ loading: true, matches: {}, 0: false }, () => this.props.fetchPlayer(this.props.match.params.playerName));
+    }
   }
 
   componentWillUnmount() {
@@ -200,7 +203,7 @@ class PlayerStats extends React.Component {
                     </section> 
                     :
                     <section className="stats-dropdown-team">
-                      <TeamStats team={match.team} />
+                      <TeamStats team={match.team} player={player} />
                     </section>
                   }
                 </main>
