@@ -78,22 +78,22 @@
   justify-content: space-around;
 }
 
-.stats-dropdown-player-button {
-  background: lightgray;
+.stats-dropdown-tabs div {
   flex-direction: column;
   align-items: center;
   width: 50%;
+  font-weight: 600;
+  padding: 10px 0;
+  font-size: 26px;
+}
+
+.stats-dropdown-player-button {
+  background: lightgray;
 }
 
 .stats-dropdown-player-button:hover {
   cursor: pointer;
   background: lightgray;
-}
-
-.stats-dropdown-team-button {
-  flex-direction: column;
-  align-items: center;
-  width: 50%;
 }
 
 .stats-dropdown-team-button:hover {
@@ -184,16 +184,16 @@
   .player-match {
     font-size: 4.3vw;
     margin: 4vw 0;
-    padding: 4vw;
-  }
-
-  .player-match div {
-    /* flex-direction: column; */
   }
 
   .match-attributes {
     flex-direction: row;
     font-size: 4.5vw;
+    padding: 4vw;
+  }
+
+  .match-attributes h2 {
+    font-size: 3.5vw;
   }
 
   .player-attributes {
@@ -204,6 +204,29 @@
   .player-stats {
     flex-direction: column;
     font-size: 4vw;
+  }
+
+  .stats-dropdown-tabs div {
+    font-size: 4vw;
+    padding: 2vw 0;
+  }
+
+  .stats-dropdown-player {
+    padding: 4vw;
+    text-align: center;
+  }
+
+  .stats-dropdown-team {
+    font-size: 3vw;
+    padding: 4vw;
+  }
+
+  .team-member-stats li span {
+    padding-top: 2vw;
+  }
+  
+  .team-member-stats h2 {
+    font-size: 3.5vw;
   }
 
   .match-history-loading {
