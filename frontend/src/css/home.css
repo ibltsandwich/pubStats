@@ -56,6 +56,13 @@
   background: #d69500;
 }
 
+.empty-field-error {
+  font-family: 'Teko';
+  font-size: 24px;
+  color: white;
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 700px) {
   .splash-logo {
     font-size: 15vw;
@@ -72,7 +79,7 @@
   }
 
   .player-search-input {
-    font-size: 5vw;
+    font-size: 4.5vw;
     height: 8vw;
   }
 
@@ -82,4 +89,8 @@
     padding: 0 1.5vw;
   }
   
+  .empty-field-error {
+    font-size: 5vw;
+    margin-top: 4vw;
+  }
 }

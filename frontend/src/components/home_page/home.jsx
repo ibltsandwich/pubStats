@@ -22,22 +22,6 @@ class Home extends React.Component {
   };
 
   update(field) {
-    // if (this.sessionSubmit) {
-    //   if (this.props.formType === 'Login') {
-    //     if (this.state.username.length > 0 && this.state.password.length > 0) {
-    //       this.sessionSubmit.disabled = false;
-    //     } else {
-    //       this.sessionSubmit.disabled = true;
-    //     }
-    //   } else if (this.props.formType === 'Register') {
-    //     if (this.state.username.length > 0 && this.state.email.length > 0 && this.state.password.length > 0 && this.state.password2.length > 0) {
-    //       this.sessionSubmit.disabled = false;
-    //     } else {
-    //       this.sessionSubmit.disabled = true;
-    //     }
-    //   }
-    // };
-
     return e => this.setState({
       [field]: e.currentTarget.value
     });
@@ -46,7 +30,11 @@ class Home extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const playerName = this.state.playerName;
-    this.props.history.push(`/players/${playerName}`);
+    if (playerName.length === 0) {
+      this.setState({ empty: true })
+    } else {
+      this.props.history.push(`/players/${playerName}`);
+    }
   }
 
   render() {
@@ -72,6 +60,11 @@ class Home extends React.Component {
               SEARCH
             </button>
           </div>
+          {this.state.empty ? 
+            <h1 className="empty-field-error">* Please enter a valid player name</h1>
+            :
+            null
+          }
         </form>
       </>
     )
