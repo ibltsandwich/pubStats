@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Footer from '../footer/footer';
 import { fetchPlayer } from '../../actions/player_actions';
 
 const msp = state => {
@@ -39,7 +40,7 @@ class Home extends React.Component {
 
   render() {
     return(
-      <>
+      <div className="home-container">
         <h1 className="splash-logo">pubStats</h1>
         <form className="home-player-search" onSubmit={this.handleSubmit} autoCorrect="off" autoCapitalize="none">
           <div>
@@ -66,7 +67,8 @@ class Home extends React.Component {
             null
           }
         </form>
-      </>
+        <Footer />
+      </div>
     )
   }
 }

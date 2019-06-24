@@ -180,6 +180,13 @@
   color: white;
 }
 
+.player-loading {
+  font-family: 'Teko';
+  font-size: 40px;
+  color: white;
+  margin: 50px;
+}
+
 @media screen and (max-width: 700px) {
   .player-stats-container {
     margin: 7vw auto;
@@ -254,5 +261,10 @@
 
   .match-history-loading {
     font-size: 10vw;
+  }
+
+  .player-loading {
+    font-size: 10vw;
+    margin: 10vw;
   }
 }
