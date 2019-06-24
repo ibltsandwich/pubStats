@@ -40,78 +40,78 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (this.props.errors.length === 0) {
-      if (Object.values(this.state.matches).length === 0 && this.props.player) {
-        Object.values(this.props.player.matches).forEach(match => {
-          fetch(API + match.id, {
-                  method: 'GET',
-                  headers: {
-                    'Accept': 'application/vnd.api+json',
-                    
-                  },
-            })
-            .then(response => {
-              return response.json()})
-            // .then(data => this.setState({ [match.id]: data }))
-            .then(matchData => {
-              const matchInfo = {};
-              matchInfo.id = matchData.data.id;
-              matchInfo.attributes = matchData.data.attributes;
-              matchInfo.rosters = matchData.data.relationships.rosters.data;
-              let participantId;
-              let team;
-              const teamInfo = {};
+    if (Object.values(this.state.matches).length === 0 && this.props.player) {
+      Object.values(this.props.player.matches).forEach(match => {
+        fetch(API + match.id, {
+                method: 'GET',
+                headers: {
+                  'Accept': 'application/vnd.api+json',
+                  
+                },
+          })
+          .then(response => {
+            return response.json();
+          })
+          .then(matchData => {
+            const matchInfo = {};
+            matchInfo.id = matchData.data.id;
+            matchInfo.attributes = matchData.data.attributes;
+            matchInfo.rosters = matchData.data.relationships.rosters.data;
+            let participantId;
+            let team;
+            const teamInfo = {};
 
+            for (let i = 0; i < matchData.included.length; i += 1) {
+              const item = matchData.included[i];
+              const playerId = this.props.player.playerId;
+
+              if (item.type === "participant") {
+                if (item.attributes.stats.playerId === playerId) {
+                  participantId = item.id
+                  matchInfo.stats = item.attributes.stats;
+                };
+              };
+            };
+
+            for (let i = 0; i < matchData.included.length; i += 1) {
+              const item = matchData.included[i];
+
+              if (item.type === "roster") {
+                item.relationships.participants.data.forEach(member => {
+                  if (member.id === participantId) {
+                    team = item.relationships.participants.data;
+                  };
+                });
+              };
+            };
+
+            team.forEach(member => {
               for (let i = 0; i < matchData.included.length; i += 1) {
                 const item = matchData.included[i];
-                const playerId = this.props.player.playerId;
 
                 if (item.type === "participant") {
-                  if (item.attributes.stats.playerId === playerId) {
-                    participantId = item.id
-                    matchInfo.stats = item.attributes.stats;
+                  if (item.id === member.id) {
+                    teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
                   };
                 };
               };
-
-              for (let i = 0; i < matchData.included.length; i += 1) {
-                const item = matchData.included[i];
-
-                if (item.type === "roster") {
-                  item.relationships.participants.data.forEach(member => {
-                    if (member.id === participantId) {
-                      team = item.relationships.participants.data;
-                    };
-                  });
-                };
-              };
-
-              team.forEach(member => {
-                for (let i = 0; i < matchData.included.length; i += 1) {
-                  const item = matchData.included[i];
-
-                  if (item.type === "participant") {
-                    if (item.id === member.id) {
-                      teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
-                    };
-                  };
-                };
-              });
-
-              matchInfo.team = teamInfo;
-
-              this.setState(state => {
-                return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
-              });
             });
-        });
-      }
-      if (this.state.loading && this.props.player) {
-        if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
-          this.setState({ loading: false });
-        }
+
+            matchInfo.team = teamInfo;
+
+            this.setState(state => {
+              return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
+            });
+          });
+      });
+    };
+    
+    if (this.state.loading && this.props.player) {
+      if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
+        this.setState({ loading: false });
       }
     };
+
     if (oldProps.location.pathname !== this.props.location.pathname) {
       const newState = { loading: true, matches: {} };
       Object.keys(this.state).forEach(key => {
@@ -122,7 +122,7 @@ class PlayerStats extends React.Component {
         }
       });
       this.setState(newState, () => this.props.fetchPlayer(this.props.match.params.playerName));
-    }
+    };
   }
 
   componentWillUnmount() {
@@ -152,20 +152,13 @@ class PlayerStats extends React.Component {
 
   render() {
     if (this.props.errors.length > 0) {
-      // return (
-      //   <div className="player-errors">
-      //     <h1 className="player-error-title">{this.props.errors[0].title}</h1>
-      //     <h2 className="player-error-detail">{this.props.errors[0].detail}</h2>
-      //   </div>
-      // )
-      return (
+      return(
         <div className="player-errors">
-          <h1 className="player-error-title">Player Not Found</h1>
-          <h2 className="player-error-detail">The requested player could not be found</h2>
+          <h1 className="player-error-title">{this.props.errors[0].title}</h1>
+          <h1 className="player-error-detail">{this.props.errors[0].detail}</h1>
         </div>
       )
-    }
-    if(this.props.player) {
+    } else if(this.props.player) {
       const { player } = this.props;
       const updated = new Date(Date.parse(player.updatedAt));
       const sortedHistory = Object.values(this.state.matches).sort((a, b) => 
@@ -244,7 +237,14 @@ class PlayerStats extends React.Component {
           </header>
           <main className="player-match-history">
             <ul className="player-match-history-list">
-              {matchHistory}
+              {matchHistory.length > 0 ? 
+                matchHistory
+                :
+                this.state.loading ? 
+                  <h1 className="player-loading">Loading...</h1> 
+                  : 
+                  <h1 className="match-history-loading">No matches found</h1>
+              }
             </ul>
           </main>
         </div>

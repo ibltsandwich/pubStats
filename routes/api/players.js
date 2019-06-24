@@ -25,7 +25,9 @@ router.get(`/:playerName`, (req, res) => {
               return res.json();
             })
             .then(player => {
-              if (player.errors) { return res.status(404).json(player.errors) }
+              if (player.errors) { 
+                return res.status(404).json(player.errors) 
+              }
 
               playerMatches = {};
 
@@ -33,6 +35,7 @@ router.get(`/:playerName`, (req, res) => {
                 playerMatches[match.id] = match;
               });
 
+              console.log(playerMatches)
               const newPlayer = new Player({
                 playerId: player.data[0].id,
                 name: player.data[0].attributes.name,
@@ -48,9 +51,6 @@ router.get(`/:playerName`, (req, res) => {
                 .catch(err => {
                   return res.status(400).json(err);
                 });
-            })
-            .catch(err => {
-              return res.status(404).json(err);
             })
       }
     });
