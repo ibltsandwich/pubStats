@@ -56,16 +56,18 @@ router.route(`/:playerName`)
       });
   })
   .patch((req, res) => {
+    // Player
+    //   .findOneAndUpdate(
+    //     { lowerCaseName: req.body.playerName }, 
+    //     { matches: req.body.matches }
+    //   )
     Player
-      .findOne({ lowerCaseName: req.body.playerName })
-      .then(player => {
-        player.matches = Object.assign(player.matches, req.body.matches);
-        player
-          .save()
-          .then(player => {
-            return res.json({ [player.name.toLowerCase()]: player })
-          });
-      });
+        .findOne({ lowerCaseName: req.body.playerName })
+        .then(player => {
+          player.matches = Object.assign(player.matches, req.body.matches);
+          player.save();
+          return res.json({ [player.name.toLowerCase()]: player });
+        });
   });
 
 

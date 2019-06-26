@@ -13,7 +13,6 @@ export const fetchPlayer = playerName => dispatch => {
 };
 
 export const updatePlayer = data => dispatch => {
-  debugger
   return axios 
             .patch(`api/players/${data.playerName}`, data)
             .then(response => {

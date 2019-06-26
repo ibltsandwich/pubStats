@@ -41,6 +41,7 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
+    debugger
     if (Object.values(this.state.matches).length === 0 && this.props.player) {
       Object.values(this.props.player.matches).forEach(match => {
         if (!match.fetched) {
@@ -106,6 +107,10 @@ class PlayerStats extends React.Component {
                 return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
               });
             });
+        } else {
+          this.setState(state => {
+            return { matches: Object.assign(this.props.player.matches) };
+          })
         }
       });
     };
