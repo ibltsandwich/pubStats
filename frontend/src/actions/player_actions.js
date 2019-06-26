@@ -18,5 +18,9 @@ export const receivePlayerErrors = payload => {
 }
 
 export const fetchPlayer = playerName => {
-  return PlayerApiUtil.fetchPlayer(playerName)
+  return PlayerApiUtil.fetchPlayer(playerName);
 };
+
+export const updatePlayer = data => {
+  return PlayerApiUtil.updatePlayer(data);
+}

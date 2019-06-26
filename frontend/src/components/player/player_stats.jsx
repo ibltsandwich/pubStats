@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TeamStats from './team_stats';
 
-import { fetchPlayer } from '../../actions/player_actions';
+import { fetchPlayer, updatePlayer } from '../../actions/player_actions';
 import { removeErrors } from '../../util/session_api_util';
 
 const API = 'https://api.pubg.com/shards/psn/matches/';
@@ -20,6 +20,7 @@ const msp = (state, ownProps) => {
 const mdp = dispatch => {
   return {
     fetchPlayer: playerName => dispatch(fetchPlayer(playerName)),
+    updatePlayer: data => dispatch(updatePlayer(data)),
     removeErrors: () => dispatch(removeErrors()),
   };
 }
@@ -42,73 +43,80 @@ class PlayerStats extends React.Component {
   componentDidUpdate(oldProps) {
     if (Object.values(this.state.matches).length === 0 && this.props.player) {
       Object.values(this.props.player.matches).forEach(match => {
-        fetch(API + match.id, {
-                method: 'GET',
-                headers: {
-                  'Accept': 'application/vnd.api+json',
-                  
-                },
-          })
-          .then(response => {
-            return response.json();
-          })
-          .then(matchData => {
-            const matchInfo = {};
-            matchInfo.id = matchData.data.id;
-            matchInfo.attributes = matchData.data.attributes;
-            matchInfo.rosters = matchData.data.relationships.rosters.data;
-            let participantId;
-            let team;
-            const teamInfo = {};
-
-            for (let i = 0; i < matchData.included.length; i += 1) {
-              const item = matchData.included[i];
-              const playerId = this.props.player.playerId;
-
-              if (item.type === "participant") {
-                if (item.attributes.stats.playerId === playerId) {
-                  participantId = item.id
-                  matchInfo.stats = item.attributes.stats;
-                };
-              };
-            };
-
-            for (let i = 0; i < matchData.included.length; i += 1) {
-              const item = matchData.included[i];
-
-              if (item.type === "roster") {
-                item.relationships.participants.data.forEach(member => {
-                  if (member.id === participantId) {
-                    team = item.relationships.participants.data;
-                  };
-                });
-              };
-            };
-
-            team.forEach(member => {
+        if (!match.fetched) {
+          fetch(API + match.id, {
+                  method: 'GET',
+                  headers: {
+                    'Accept': 'application/vnd.api+json',
+                    
+                  },
+            })
+            .then(response => {
+              return response.json();
+            })
+            .then(matchData => {
+              const matchInfo = {};
+              matchInfo.id = matchData.data.id;
+              matchInfo.attributes = matchData.data.attributes;
+              matchInfo.rosters = matchData.data.relationships.rosters.data;
+              let participantId;
+              let team;
+              const teamInfo = {};
+  
               for (let i = 0; i < matchData.included.length; i += 1) {
                 const item = matchData.included[i];
-
+                const playerId = this.props.player.playerId;
+  
                 if (item.type === "participant") {
-                  if (item.id === member.id) {
-                    teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
+                  if (item.attributes.stats.playerId === playerId) {
+                    participantId = item.id
+                    matchInfo.stats = item.attributes.stats;
                   };
                 };
               };
+  
+              for (let i = 0; i < matchData.included.length; i += 1) {
+                const item = matchData.included[i];
+  
+                if (item.type === "roster") {
+                  item.relationships.participants.data.forEach(member => {
+                    if (member.id === participantId) {
+                      team = item.relationships.participants.data;
+                    };
+                  });
+                };
+              };
+  
+              team.forEach(member => {
+                for (let i = 0; i < matchData.included.length; i += 1) {
+                  const item = matchData.included[i];
+  
+                  if (item.type === "participant") {
+                    if (item.id === member.id) {
+                      teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
+                    };
+                  };
+                };
+              });
+  
+              matchInfo.team = teamInfo;
+              matchInfo.fetched = true;
+  
+              this.setState(state => {
+                return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
+              });
             });
-
-            matchInfo.team = teamInfo;
-
-            this.setState(state => {
-              return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
-            });
-          });
+        }
       });
     };
     
     if (this.state.loading && this.props.player) {
       if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
         this.setState({ loading: false });
+        this.props.updatePlayer({
+          playerName: this.props.player.name,
+          matches: this.state.matches
+        });
       }
     };
 

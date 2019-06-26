@@ -11,3 +11,12 @@ export const fetchPlayer = playerName => dispatch => {
               dispatch(receivePlayerErrors(err.response.data));
             })
 };
+
+export const updatePlayer = data => dispatch => {
+  debugger
+  return axios 
+            .patch(`api/players/${data.playerName}`, data)
+            .then(response => {
+              dispatch(receivePlayer(response));
+            })
+}
