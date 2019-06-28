@@ -41,7 +41,6 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    debugger
     if (Object.values(this.state.matches).length === 0 && this.props.player) {
       Object.values(this.props.player.matches).forEach(match => {
         if (!match.fetched) {
