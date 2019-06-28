@@ -56,17 +56,40 @@ router.route(`/:playerName`)
       });
   })
   .patch((req, res) => {
-    // Player
-    //   .findOneAndUpdate(
-    //     { lowerCaseName: req.body.playerName }, 
-    //     { matches: req.body.matches }
-    //   )
     Player
-        .findOne({ lowerCaseName: req.body.playerName })
-        .then(player => {
-          player.matches = Object.assign(player.matches, req.body.matches);
-          player.save();
-          return res.json({ [player.name.toLowerCase()]: player });
+        .findOne({ lowerCaseName: req.body.playerName }, (err, player) => {
+          for (let matchId in req.body.matches) {
+            player.matches[matchId] = req.body.matches[matchId];
+          }
+
+          fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.body.playerName}`, {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': `Bearer ${PUBG_API_KEY}`,
+                    'Accept': 'application/vnd.api+json',
+                  },
+            })
+            .then(res => res.json())
+            .then(fetchedPlayer => {
+              fetchedPlayer.data[0].relationships.matches.data.forEach(match => {
+                if (player.matches[match.id] === undefined) {
+                  player.matches[match.id] = match;
+                }
+              });
+              player.updatedAt = fetchedPlayer.data[0].attributes.updatedAt;
+              player.markModified('matches');
+              player.markModified('updatedAt');
+              player
+                .save()
+                .then(player => {
+                  return res.json({ [player.name.toLowerCase()]: player });
+                });
+            })
+
+          // player.markModified('matches');
+          // player.markModified('updatedAt');
+          // player.save();
+          // return res.json({ [player.name.toLowerCase()]: player });
         });
   });
 

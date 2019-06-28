@@ -108,8 +108,8 @@ class PlayerStats extends React.Component {
               });
             });
         } else {
-          this.setState(state => {
-            return { matches: Object.assign(this.props.player.matches) };
+          this.setState(state => { 
+            return { matches: Object.assign(state.matches, {[match.id]: this.props.player.matches[match.id]}) }
           })
         }
       });

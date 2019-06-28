@@ -11,7 +11,7 @@ const matches = require("./routes/api/matches");
 require('./config/passport')(passport);
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50MB' }));
 
 app.use('/public', express.static(__dirname + '/public'));
 
