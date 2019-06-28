@@ -1,9 +1,11 @@
+
+
 .splash-logo {
   font-family: 'Teko';
   font-size: 70px;
   color: white;
   text-align: center;
-  margin-top: 115px;
+  padding-top: 115px;
 }
 
 .home-player-search {
@@ -66,7 +68,7 @@
 @media screen and (max-width: 700px) {
   .splash-logo {
     font-size: 15vw;
-    margin-top: 15vw;
+    padding-top: 15vw;
   }
 
   .home-player-search {

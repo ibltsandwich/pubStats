@@ -1,5 +1,6 @@
 .player-stats-container {
   margin: 50px auto;
+  padding-bottom: 50px;
   width: 70vw;
   -webkit-tap-highlight-color: transparent;
 }
@@ -217,6 +218,7 @@
 @media screen and (max-width: 700px) {
   .player-stats-container {
     margin: 7vw auto;
+    padding-bottom: 20vw;
     width: 90vw;
   }
 

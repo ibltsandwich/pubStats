@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Footer from '../footer/footer';
 import { fetchPlayer } from '../../actions/player_actions';
 
 const msp = state => {
@@ -23,9 +22,13 @@ class Home extends React.Component {
   };
 
   update(field) {
-    return e => this.setState({
-      [field]: e.currentTarget.value
-    });
+    return e => {
+      if (e.target.value.trim() === "") {
+        this.setState({ [field]: "" });
+      } else {
+        this.setState({ [field]: e.target.value });
+      }
+    }
   }
 
   handleSubmit(e) {
@@ -67,7 +70,7 @@ class Home extends React.Component {
             null
           }
         </form>
-        <Footer />
+        <div className="something-empty"></div>
       </div>
     )
   }

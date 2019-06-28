@@ -8,8 +8,10 @@
 html {
   min-height: 100%;
   min-width: 100%;
+  position: relative;
 }
 
 body {
   background: linear-gradient(to right, #29322e, #343b3a 55%, #505852);
+  height: 100%;
 }
