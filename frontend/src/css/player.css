@@ -232,6 +232,13 @@
     font-size: 3vw;
   }
 
+  .player-update-button {
+    margin: 3vw 0;
+    width: 30vw;
+    height: 9vw;
+    font-size: 3.5vw;
+  }
+
   .player-match-history-list {
     margin-top: 6vw;
   }
