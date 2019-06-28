@@ -30,6 +30,8 @@ const PlayerSchema = new Schema({
       type: Date,
       default: Date.now,
     },
-  });
+  },
+  { minimize: false }
+);
 
 module.exports = Match = mongoose.model('players', PlayerSchema);

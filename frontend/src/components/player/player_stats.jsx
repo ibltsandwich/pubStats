@@ -34,6 +34,7 @@ class PlayerStats extends React.Component {
     this.toggleMatch = this.toggleMatch.bind(this);
     this.showPlayerStats = this.showPlayerStats.bind(this);
     this.showTeamStats = this.showTeamStats.bind(this);
+    this.updatePlayerButton = this.updatePlayerButton.bind(this);
   }
 
   componentDidMount() {
@@ -42,87 +43,87 @@ class PlayerStats extends React.Component {
 
   componentDidUpdate(oldProps) {
     if (Object.values(this.state.matches).length === 0 && this.props.player) {
-      Object.values(this.props.player.matches).forEach(match => {
-        if (!match.fetched) {
-          fetch(API + match.id, {
-                  method: 'GET',
-                  headers: {
-                    'Accept': 'application/vnd.api+json',
-                    
-                  },
-            })
-            .then(response => {
-              return response.json();
-            })
-            .then(matchData => {
-              const matchInfo = {};
-              matchInfo.id = matchData.data.id;
-              matchInfo.attributes = matchData.data.attributes;
-              matchInfo.rosters = matchData.data.relationships.rosters.data;
-              let participantId;
-              let team;
-              const teamInfo = {};
-  
-              for (let i = 0; i < matchData.included.length; i += 1) {
-                const item = matchData.included[i];
-                const playerId = this.props.player.playerId;
-  
-                if (item.type === "participant") {
-                  if (item.attributes.stats.playerId === playerId) {
-                    participantId = item.id
-                    matchInfo.stats = item.attributes.stats;
-                  };
-                };
-              };
-  
-              for (let i = 0; i < matchData.included.length; i += 1) {
-                const item = matchData.included[i];
-  
-                if (item.type === "roster") {
-                  item.relationships.participants.data.forEach(member => {
-                    if (member.id === participantId) {
-                      team = item.relationships.participants.data;
-                    };
-                  });
-                };
-              };
-  
-              team.forEach(member => {
+      if (this.props.player.matches) {
+        Object.values(this.props.player.matches).forEach(match => {
+          if (!match.fetched) {
+            fetch(API + match.id, {
+                    method: 'GET',
+                    headers: {
+                      'Accept': 'application/vnd.api+json',
+                      
+                    },
+              })
+              .then(response => {
+                return response.json();
+              })
+              .then(matchData => {
+                const matchInfo = {};
+                matchInfo.id = matchData.data.id;
+                matchInfo.attributes = matchData.data.attributes;
+                matchInfo.rosters = matchData.data.relationships.rosters.data;
+                let participantId;
+                let team;
+                const teamInfo = {};
+    
                 for (let i = 0; i < matchData.included.length; i += 1) {
                   const item = matchData.included[i];
-  
+                  const playerId = this.props.player.playerId;
+    
                   if (item.type === "participant") {
-                    if (item.id === member.id) {
-                      teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
+                    if (item.attributes.stats.playerId === playerId) {
+                      participantId = item.id
+                      matchInfo.stats = item.attributes.stats;
                     };
                   };
                 };
-              });
-  
-              matchInfo.team = teamInfo;
-              matchInfo.fetched = true;
-  
-              this.setState(state => {
-                return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
-              });
-            });
-        } else {
-          this.setState(state => { 
-            return { matches: Object.assign(state.matches, {[match.id]: this.props.player.matches[match.id]}) }
-          })
-        }
-      });
-    };
     
-    if (this.state.loading && this.props.player) {
-      if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
-        this.setState({ loading: false });
-        this.props.updatePlayer({
-          playerName: this.props.player.name,
-          matches: this.state.matches
+                for (let i = 0; i < matchData.included.length; i += 1) {
+                  const item = matchData.included[i];
+    
+                  if (item.type === "roster") {
+                    item.relationships.participants.data.forEach(member => {
+                      if (member.id === participantId) {
+                        team = item.relationships.participants.data;
+                      };
+                    });
+                  };
+                };
+    
+                team.forEach(member => {
+                  for (let i = 0; i < matchData.included.length; i += 1) {
+                    const item = matchData.included[i];
+    
+                    if (item.type === "participant") {
+                      if (item.id === member.id) {
+                        teamInfo[item.attributes.stats.playerId] = item.attributes.stats;
+                      };
+                    };
+                  };
+                });
+    
+                matchInfo.team = teamInfo;
+                matchInfo.fetched = true;
+    
+                this.setState(state => {
+                  return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
+                });
+              });
+          } else {
+            this.setState(state => { 
+              return { matches: Object.assign(state.matches, {[match.id]: this.props.player.matches[match.id]}) }
+            })
+          }
         });
       }
     };
+    
+    if (this.state.loading && this.props.player) {
+      if (Object.values(this.props.player.matches).length === 0) {
+        this.setState({ loading: false })
+      } else if (Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
+        this.setState({ loading: false });
+      }
+    }
 
     if (oldProps.location.pathname !== this.props.location.pathname) {
       const newState = { loading: true, matches: {} };
@@ -139,6 +140,17 @@ class PlayerStats extends React.Component {
 
   componentWillUnmount() {
     this.props.removeErrors();
+  }
+
+  updatePlayerButton(e) {
+    e.preventDefault();
+    this.props.updatePlayer({
+      playerName: this.props.player.name,
+      matches: this.state.matches
+    });
+    e.target.innerHTML = "Updated";
+    e.target.disabled = true;
+    e.target.classList.add("disabled");
   }
 
   toggleMatch(e) {
@@ -244,7 +256,7 @@ class PlayerStats extends React.Component {
           <header className="player-header">
             <h1>{player.name}</h1>
             <h3>Last Updated: {updated.toLocaleString()}</h3>
-
+            <button className="player-update-button" onClick={this.updatePlayerButton}>Update Stats</button>
 
           </header>
           <main className="player-match-history">

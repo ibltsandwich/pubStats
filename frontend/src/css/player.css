@@ -20,6 +20,33 @@
   color: white;
 }
 
+.player-update-button {
+  margin: 10px 0;
+  border: none;
+  border-radius: 3px;
+  width: 125px;
+  height: 35px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #f2a902;
+  color: white;
+  outline: none;
+}
+
+.player-update-button:hover {
+  background: #d69500;
+  cursor: pointer;
+}
+
+.disabled {
+  background: gray;
+}
+
+.disabled:hover {
+  background: gray;
+  cursor: default;
+}
+
 .player-match-history-list {
   margin-top: 50px;
 }
