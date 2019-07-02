@@ -390,13 +390,8 @@
   }
   
   .team-member-stats h2 {
-<<<<<<< HEAD
     font-size: 2.5vw;
     height: 3vw;
-=======
-    font-size: 2vw;
-    height: 2.5vw;
->>>>>>> fd8794e76ec47f4445c999851e23d8cde1f1b126
   }
 
   .match-history-loading {
