@@ -162,24 +162,41 @@ class PlayerStats extends React.Component {
 
   toggleMatch(e) {
     this.setState({[e.currentTarget.id]: !this.state[e.currentTarget.id]});
-    this.setState({[`playerStats${e.currentTarget.id}`]: true});
+    this.setState({[`teamStats${e.currentTarget.id}`]: true});
   }
 
   showPlayerStats(e) {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: true});
     this.setState({[`teamStats${e.currentTarget.id}`]: false});
-    this[`playerButton${e.currentTarget.id}`].style.background = 'lightgray';
-    this[`teamButton${e.currentTarget.id}`].style.background = '#e1e4e3';
+    // this[`playerButton${e.currentTarget.id}`].style.background = 'lightgray';
+    // this[`teamButton${e.currentTarget.id}`].style.background = '#e1e4e3';
+    this[`playerButton${e.currentTarget.id}`].className = 'stats-dropdown-player-button-clicked';
+    this[`teamButton${e.currentTarget.id}`].className = 'stats-dropdown-team-button';
   }
 
   showTeamStats(e) {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: false});
     this.setState({[`teamStats${e.currentTarget.id}`]: true});
-    this[`playerButton${e.currentTarget.id}`].style.background = '#e1e4e3';
-    this[`teamButton${e.currentTarget.id}`].style.background = 'lightgray';
+    // this[`playerButton${e.currentTarget.id}`].style.background = '#e1e4e3';
+    // this[`teamButton${e.currentTarget.id}`].style.background = 'lightgray';
+    this[`playerButton${e.currentTarget.id}`].className = 'stats-dropdown-player-button';
+    this[`teamButton${e.currentTarget.id}`].className = 'stats-dropdown-team-button-clicked';
   }
+
+  setMapName(map) {
+    switch(map) {
+      case "Erangel_Main":
+        return "Erangel";
+      case "Savage_Main":
+        return "Sanhok";
+      case "DihorOtok_Main":
+        return "Vikendi";
+      case "Desert_Main":
+        return "Miramar";
+    };
+  };
 
   render() {
     if (this.props.errors.length > 0) {
@@ -204,6 +221,7 @@ class PlayerStats extends React.Component {
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
           const gameDate = date.split(",")[0];
           const gameTime = date.split(",")[1];
+
           let className;
           if (match.stats.winPlace === 1) {
             className = "player-match win";
@@ -212,6 +230,8 @@ class PlayerStats extends React.Component {
           } else {
             className = "player-match lose";
           };
+
+          let mapName = this.setMapName(match.attributes.mapName);
 
           return (
             <li className={className} id={idx} key={idx} onClick={this.toggleMatch}>
@@ -225,27 +245,34 @@ class PlayerStats extends React.Component {
                   <h2>/</h2>
                   <h2>{match.rosters.length}</h2>
                 </div>
-                <h4>{match.attributes.gameMode.toUpperCase()}</h4>
+                <div className="match-details">
+                  <h4>{match.attributes.gameMode.toUpperCase()}</h4>
+                  <h5>{mapName}</h5>
+                </div>
               </div>
               {this.state[idx] ? 
                 <main className="stats-dropdown" onClick={e => e.stopPropagation()}>
                   <header className="stats-dropdown-tabs">
+                    <div className="stats-dropdown-team-button-clicked" onClick={this.showTeamStats} id={idx} ref={elem => this[`teamButton${idx}`] = elem}>
+                      Team Stats
+                    </div>
                     <div className="stats-dropdown-player-button" onClick={this.showPlayerStats} id={idx} ref={elem => this[`playerButton${idx}`] = elem}>
                       Your Stats
-                    </div>
-                    <div className="stats-dropdown-team-button" onClick={this.showTeamStats} id={idx} ref={elem => this[`teamButton${idx}`] = elem}>
-                      Team Stats
                     </div>
                   </header>
                   {this.state[`playerStats${idx}`] ? 
                     <section className="stats-dropdown-player">
                       <div className="player-attributes">
-                        <h3>Time Survived: {survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</h3>
-                        <h1>Distance Traveled: {(match.stats.walkDistance + match.stats.swimDistance + match.stats.rideDistance).toFixed(2)}m</h1>
+                        <span>Time Survived</span>
+                        <span style={{fontWeight: 700}}>{survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</span>
+                        <span>Distance Traveled</span>
+                        <span style={{fontWeight: 700}}>{((match.stats.walkDistance + match.stats.swimDistance + match.stats.rideDistance) / 1000).toFixed(2)}km</span>
                       </div>
                       <div className="player-stats">
-                        <span>Kills: {match.stats.kills}</span>
-                        <span>Damage Dealt: {match.stats.damageDealt.toFixed(2)}</span>
+                        <span>Kills</span>
+                        <span style={{fontWeight: 700}}>{match.stats.kills}</span>
+                        <span>Damage Dealt</span>
+                        <span style={{fontWeight: 700}}>{match.stats.damageDealt.toFixed(2)}</span>
                       </div>
                     </section> 
                     :

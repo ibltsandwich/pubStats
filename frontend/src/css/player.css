@@ -108,15 +108,19 @@
   font-weight: 400;
 }
 
-.match-attributes h4 {
+.match-details {
   width: 35%;
-  margin: auto 0;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.match-details h5 {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .player-attributes {  
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .player-stats {
@@ -156,16 +160,28 @@
 }
 
 .stats-dropdown-player-button {
-  background: lightgray;
+  /* background: lightgray; */
 }
+
+/* .stats-dropdown-team-button {
+  background: lightgray;
+} */
 
 .stats-dropdown-player-button:hover {
   cursor: pointer;
-  background: lightgray;
+  background: #cccccc;
 }
 
 .stats-dropdown-team-button:hover {
   cursor: pointer;
+  background: #cccccc;
+}
+
+.stats-dropdown-player-button-clicked {
+  background: lightgray;
+}
+
+.stats-dropdown-team-button-clicked {
   background: lightgray;
 }
 
@@ -182,7 +198,7 @@
 
 .stats-dropdown-team {
   background: lightgray;
-  padding: 20px;
+  padding: 30px;
   font-size: 18px;
 }
 
@@ -209,7 +225,7 @@
 .team-member-name {
   font-weight: 500;
   text-align: left;
-  width: 20%;
+  width: 35%;
 }
 
 .team-member-name span a {
@@ -332,6 +348,10 @@
   
   .match-finish-place h2 {
     font-size: 4vw;
+  }
+
+  .match-details h5 {
+    font-size: 3vw;
   }
 
   .player-attributes {
