@@ -57,7 +57,8 @@ router.route(`/:playerName`)
   })
   .patch((req, res) => {
     Player
-        .findOne({ lowerCaseName: req.body.playerName }, (err, player) => {
+        .findOne({ lowerCaseName: req.body.playerName.toLowerCase() }, (err, player) => {
+          console.log(player);
           for (let matchId in req.body.matches) {
             player.matches[matchId] = req.body.matches[matchId];
           }
