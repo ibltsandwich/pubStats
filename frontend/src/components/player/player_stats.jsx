@@ -42,7 +42,8 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (Object.values(this.state.matches).length === 0 && this.props.player) {
+    if (Object.values(this.state.matches).length === 0 && this.props.player ||
+      oldProps.player.updatedAt !== this.props.player.updatedAt) {
       if (this.props.player.matches) {
         Object.values(this.props.player.matches).forEach(match => {
           if (!match.fetched) {
@@ -147,7 +148,10 @@ class PlayerStats extends React.Component {
     this.props.updatePlayer({
       playerName: this.props.player.name,
       matches: this.state.matches
-    });
+    })
+      .then(player => {
+
+      })
     e.target.innerHTML = "Updated";
     e.target.disabled = true;
     e.target.classList.add("disabled");
