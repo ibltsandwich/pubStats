@@ -162,15 +162,13 @@ class PlayerStats extends React.Component {
 
   toggleMatch(e) {
     this.setState({[e.currentTarget.id]: !this.state[e.currentTarget.id]});
-    this.setState({[`teamStats${e.currentTarget.id}`]: true});
+    this.setState({[`playerStats${e.currentTarget.id}`]: true});
   }
 
   showPlayerStats(e) {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: true});
     this.setState({[`teamStats${e.currentTarget.id}`]: false});
-    // this[`playerButton${e.currentTarget.id}`].style.background = 'lightgray';
-    // this[`teamButton${e.currentTarget.id}`].style.background = '#e1e4e3';
     this[`playerButton${e.currentTarget.id}`].className = 'stats-dropdown-player-button-clicked';
     this[`teamButton${e.currentTarget.id}`].className = 'stats-dropdown-team-button';
   }
@@ -179,8 +177,6 @@ class PlayerStats extends React.Component {
     e.stopPropagation();
     this.setState({[`playerStats${e.currentTarget.id}`]: false});
     this.setState({[`teamStats${e.currentTarget.id}`]: true});
-    // this[`playerButton${e.currentTarget.id}`].style.background = '#e1e4e3';
-    // this[`teamButton${e.currentTarget.id}`].style.background = 'lightgray';
     this[`playerButton${e.currentTarget.id}`].className = 'stats-dropdown-player-button';
     this[`teamButton${e.currentTarget.id}`].className = 'stats-dropdown-team-button-clicked';
   }
@@ -253,26 +249,34 @@ class PlayerStats extends React.Component {
               {this.state[idx] ? 
                 <main className="stats-dropdown" onClick={e => e.stopPropagation()}>
                   <header className="stats-dropdown-tabs">
-                    <div className="stats-dropdown-team-button-clicked" onClick={this.showTeamStats} id={idx} ref={elem => this[`teamButton${idx}`] = elem}>
-                      Team Stats
-                    </div>
-                    <div className="stats-dropdown-player-button" onClick={this.showPlayerStats} id={idx} ref={elem => this[`playerButton${idx}`] = elem}>
+                    <div className="stats-dropdown-player-button-clicked" onClick={this.showPlayerStats} id={idx} ref={elem => this[`playerButton${idx}`] = elem}>
                       Your Stats
+                    </div>
+                    <div className="stats-dropdown-team-button" onClick={this.showTeamStats} id={idx} ref={elem => this[`teamButton${idx}`] = elem}>
+                      Team Stats
                     </div>
                   </header>
                   {this.state[`playerStats${idx}`] ? 
                     <section className="stats-dropdown-player">
                       <div className="player-attributes">
-                        <span>Time Survived</span>
-                        <span style={{fontWeight: 700}}>{survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</span>
-                        <span>Distance Traveled</span>
-                        <span style={{fontWeight: 700}}>{((match.stats.walkDistance + match.stats.swimDistance + match.stats.rideDistance) / 1000).toFixed(2)}km</span>
+                        <span>
+                          <span>Time Survived: </span>
+                          <span style={{fontWeight: 700}}>{survivalMinutes + ":"}{survivalSeconds < 10 ? ("0" + survivalSeconds) : survivalSeconds}</span>
+                        </span>
+                        <span>
+                          <span>Distance Traveled: </span>
+                          <span style={{fontWeight: 700}}>{((match.stats.walkDistance + match.stats.swimDistance + match.stats.rideDistance) / 1000).toFixed(2)}km</span>
+                        </span>
                       </div>
                       <div className="player-stats">
-                        <span>Kills</span>
-                        <span style={{fontWeight: 700}}>{match.stats.kills}</span>
-                        <span>Damage Dealt</span>
-                        <span style={{fontWeight: 700}}>{match.stats.damageDealt.toFixed(2)}</span>
+                        <span>
+                          <span>Kills: </span>
+                          <span style={{fontWeight: 700}}>{match.stats.kills}</span>
+                        </span>
+                        <span>
+                          <span>Damage Dealt: </span>
+                          <span style={{fontWeight: 700}}>{match.stats.damageDealt.toFixed(2)}</span>
+                        </span>
                       </div>
                     </section> 
                     :

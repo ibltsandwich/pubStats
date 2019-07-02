@@ -159,14 +159,6 @@
   text-align: center;
 }
 
-.stats-dropdown-player-button {
-  /* background: lightgray; */
-}
-
-/* .stats-dropdown-team-button {
-  background: lightgray;
-} */
-
 .stats-dropdown-player-button:hover {
   cursor: pointer;
   background: #cccccc;
@@ -407,5 +399,10 @@
   
   .lose {
     border-image: linear-gradient(to bottom, #f87f7f8f, #f62e3394) 1 stretch;
+  }
+
+  @keyframes slide-down {
+    from {height: 0}
+    to {height: 161px}
   }
 }
