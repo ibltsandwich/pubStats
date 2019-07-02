@@ -42,8 +42,13 @@ class PlayerStats extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (Object.values(this.state.matches).length === 0 && this.props.player ||
-      oldProps.player.updatedAt !== this.props.player.updatedAt) {
+    if (this.props.player && oldProps.player) {
+      if (oldProps.player.updatedAt !== this.props.player.updatedAt) {
+        this.setState({ matches: this.props.player.matches });
+      }
+    }
+
+    if (Object.values(this.state.matches).length === 0 && this.props.player) {
       if (this.props.player.matches) {
         Object.values(this.props.player.matches).forEach(match => {
           if (!match.fetched) {
@@ -127,6 +132,7 @@ class PlayerStats extends React.Component {
     }
 
     if (oldProps.location.pathname !== this.props.location.pathname) {
+      window.scrollTo(0, 0);
       const newState = { loading: true, matches: {} };
       Object.keys(this.state).forEach(key => {
         if (key === 'loading' || key === 'matches'){
@@ -149,9 +155,6 @@ class PlayerStats extends React.Component {
       playerName: this.props.player.name,
       matches: this.state.matches
     })
-      .then(player => {
-
-      })
     e.target.innerHTML = "Updated";
     e.target.disabled = true;
     e.target.classList.add("disabled");
@@ -201,22 +204,28 @@ class PlayerStats extends React.Component {
           const survivalSeconds = Math.round(((match.stats.timeSurvived / 60) % 1) * 60);
           const gameDate = date.split(",")[0];
           const gameTime = date.split(",")[1];
-          let style;
+          let className;
           if (match.stats.winPlace === 1) {
-            style = {borderImage: 'linear-gradient(to bottom, #7ab4698a, #3d9938a8) 1 stretch'};
+            className = "player-match win";
           } else if (match.stats.winPlace <= 10) {
-            style = {borderImage: 'linear-gradient(to bottom, #42c7f491, #5497c2de) 1 stretch'};
+            className = "player-match top-10";
           } else {
-            style = {borderImage: 'linear-gradient(to bottom, #f87f7f8f, #f62e3394) 1 stretch'};
+            className = "player-match lose";
           };
 
           return (
-            <li className="player-match" id={idx} key={idx} onClick={this.toggleMatch} style={style}>
+            <li className={className} id={idx} key={idx} onClick={this.toggleMatch}>
               <div className="match-attributes">
-                <h1>{gameDate}</h1>
-                <h2>{gameTime}</h2>
-                <h1>{match.stats.winPlace + "/" + match.rosters.length}</h1>
-                <h3>{match.attributes.gameMode.toUpperCase()}</h3>
+                <div className="match-time">
+                  <h1>{gameDate}</h1>
+                  <h2>{gameTime}</h2>
+                </div>
+                <div className="match-finish-place">
+                  <h1>{match.stats.winPlace}</h1>
+                  <h2>/</h2>
+                  <h2>{match.rosters.length}</h2>
+                </div>
+                <h4>{match.attributes.gameMode.toUpperCase()}</h4>
               </div>
               {this.state[idx] ? 
                 <main className="stats-dropdown" onClick={e => e.stopPropagation()}>

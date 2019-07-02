@@ -25,6 +25,8 @@ class Home extends React.Component {
     return e => {
       if (e.target.value.trim() === "") {
         this.setState({ [field]: "" });
+      } else if (e.target.value[e.target.value.length - 1].match(/^[A-Za-z0-9_-]+$/) === null) {
+        null;
       } else {
         this.setState({ [field]: e.target.value });
       }
@@ -60,7 +62,8 @@ class Home extends React.Component {
             <button 
               type="submit" 
               id="player-search-submit" 
-              className="player-search-submit">
+              className="player-search-submit"
+            >
               SEARCH
             </button>
           </div>

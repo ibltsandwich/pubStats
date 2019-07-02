@@ -28,15 +28,15 @@ const TeamStats = props => {
         <br/>
         {name}
       </li>
-      <li key="kills">
+      <li key="kills" className="team-member-kills">
         <h2>Kills</h2>
         {kills}
       </li>
-      <li key="damageDealt">
+      <li key="damageDealt" className="team-member-damage">
         <h2>Damage</h2>
         {damageDealt}
       </li>
-      <li key="assists">
+      <li key="assists" className="team-member-assists">
         <h2>Assists</h2>
         {assists}
       </li>
