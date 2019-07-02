@@ -58,7 +58,6 @@ router.route(`/:playerName`)
   .patch((req, res) => {
     Player
         .findOne({ lowerCaseName: req.body.playerName.toLowerCase() }, (err, player) => {
-          console.log(player);
           for (let matchId in req.body.matches) {
             player.matches[matchId] = req.body.matches[matchId];
           }
@@ -85,12 +84,15 @@ router.route(`/:playerName`)
                 .then(player => {
                   return res.json({ [player.name.toLowerCase()]: player });
                 });
-            })
+          });
 
-          // player.markModified('matches');
-          // player.markModified('updatedAt');
-          // player.save();
-          // return res.json({ [player.name.toLowerCase()]: player });
+          // fetch(`https://api.pubg.com/shards/steam/players/${}/seasons/${seasonId}`, {
+          //       method: 'GET',
+          //       headers: {
+          //         'Authorization': `Bearer ${PUBG_API_KEY}`,
+          //         'Accept': 'application/vnd.api+json',
+          //       },
+          // });
         });
   });
 
