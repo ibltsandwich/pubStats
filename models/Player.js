@@ -18,6 +18,9 @@ const PlayerSchema = new Schema({
     matches: {
       type: Object,
     },
+    seasonStats: {
+      type: Object,
+    },
     createdAt: {
       type: String,
       required: true,
