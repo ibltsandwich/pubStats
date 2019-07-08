@@ -41,11 +41,11 @@ class PlayerMatchHistory extends React.Component {
   componentDidUpdate(oldProps) {
     if (this.props.player && oldProps.player) {
       if (oldProps.player.updatedAt !== this.props.player.updatedAt) {
-        this.setState({ matches: this.props.player.matches });
+        this.setState({ matches: {}, loading: true });
       }
     }
 
-    if (Object.values(this.state.matches).length === 0 && this.props.player || this.state.updated) {
+    if (Object.values(this.state.matches).length === 0 && this.props.player) {
       if (this.props.player.matches) {
         Object.values(this.props.player.matches).forEach(match => {
           if (!match.fetched) {
@@ -118,7 +118,6 @@ class PlayerMatchHistory extends React.Component {
           }
         });
       }
-      this.setState({updated: false});
     };
     
     if (this.state.loading && this.props.player) {
@@ -131,13 +130,6 @@ class PlayerMatchHistory extends React.Component {
     if (oldProps.location.pathname !== this.props.location.pathname) {
       window.scrollTo(0, 0);
       const newState = { loading: true, matches: {} };
-      Object.keys(this.state).forEach(key => {
-        if (key === 'loading' || key === 'matches'){
-          null;
-        } else {
-          newState[key] = false;
-        }
-      });
       this.setState(newState, () => this.props.fetchPlayer(this.props.match.params.playerName));
     };
   }
@@ -152,9 +144,8 @@ class PlayerMatchHistory extends React.Component {
     this.props.updatePlayer({
       playerName: this.props.player.name,
       matches: this.state.matches
-    })
-    this.setState({ updated: true });
-
+    });
+      
     e.target.innerHTML = "Updated";
     e.target.disabled = true;
     e.target.classList.add("disabled");
@@ -184,7 +175,6 @@ class PlayerMatchHistory extends React.Component {
     } else if(this.props.player) {
       const { player } = this.props;
       const updated = new Date(Date.parse(player.updatedAt));
-      debugger
       let matchHistory;
 
       if (!this.state.loading) {
