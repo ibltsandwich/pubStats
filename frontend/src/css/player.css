@@ -133,7 +133,7 @@
 
 @keyframes slide-down {
   from {height: 0}
-  to {height: 162px}
+  to {height: 154px}
 }
 
 .stats-dropdown section:hover {
@@ -178,7 +178,7 @@
   background: lightgray;
   padding: 30px;
   line-height: 1.5;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .stats-dropdown-player div {
