@@ -6,7 +6,7 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import LogInForm from './session/login_form_container';
 import SignUpForm from './session/signup_form_container';
-import PlayerStats from './player/player_stats';
+import PlayerMatchHistory from './player/player_match_history';
 
 import '../css/App.css';
 
@@ -19,7 +19,7 @@ class App extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={SignUpForm} />
         <Route path="/login" component={LogInForm} />
-        <Route path="/players/:playerName" component={PlayerStats} />
+        <Route path="/players/:playerName" component={PlayerMatchHistory} />
         <Footer />
       </div>
     );
