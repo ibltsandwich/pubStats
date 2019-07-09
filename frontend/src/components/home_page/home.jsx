@@ -73,7 +73,10 @@ class Home extends React.Component {
             null
           }
         </form>
-        <div className="something-empty"></div>
+        <div className="home-instructions">
+          <h1>1) Enter a PUBG username (e.g. indigopush)</h1>
+          <h2>2) Usernames are case-sensitive if it's the first time being searched</h2>
+        </div>
       </div>
     )
   }
