@@ -10,14 +10,6 @@ const MatchSchema = new Schema({
     type: Object,
     required: true,
   },
-  duration: {
-    type: Number,
-    required: true
-  },
-  createdAt: {
-    type: String,
-    required: true
-  },
   rosters: {
     type: Object,
     required: true

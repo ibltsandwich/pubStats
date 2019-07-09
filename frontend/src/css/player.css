@@ -55,13 +55,15 @@
 .player-match {
   font-family: 'Montserrat';
   background: #e1e4e3;
-  color: black;
+  color: #244a37;
   font-size: 28px;
   margin: 30px 0;
   display: flex;
   flex-direction: column;
   user-select: none;
-  border: 5px solid;
+  border: 8px solid;
+  border-top: none;
+  border-bottom: none;
 }
 
 .player-match .match-attributes {
@@ -117,6 +119,14 @@
   font-weight: 500;
 }
 
+.placement-message {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Teko';
+  color: #f2a902;
+}
+
 .player-attributes {  
   font-weight: 500;
 }
@@ -133,7 +143,7 @@
 
 @keyframes slide-down {
   from {height: 0}
-  to {height: 154px}
+  to {height: 205px}
 }
 
 .stats-dropdown section:hover {
@@ -220,7 +230,7 @@
 }
 
 .team-member-name span a {
-  color: black;
+  color: #244a37;
   text-decoration: none;
 }
 
@@ -360,6 +370,10 @@
     font-size: 3vw;
   }
 
+  .placement-message {
+    font-size: 5vw;
+  }
+
   .player-attributes {
     flex-direction: column;
   }
@@ -417,6 +431,6 @@
 
   @keyframes slide-down {
     from {height: 0}
-    to {height: 161px}
+    to {height: 191px}
   }
 }

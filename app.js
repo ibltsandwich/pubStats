@@ -21,8 +21,8 @@ mongoose
 .catch(err => console.log(err));
 
 app.use("/api/users", users);
-app.use("/api/matches", matches);
 app.use("/api/players", players);
+app.use("/api/matches", matches);
 
 app.use(passport.initialize());
 app.get("/", (req, res) => res.sendFile('index.html', { root: __dirname }));
