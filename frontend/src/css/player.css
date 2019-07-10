@@ -226,7 +226,7 @@
 .team-member-name {
   font-weight: 500;
   text-align: left;
-  width: 30%;
+  width: 45%;
 }
 
 .team-member-name span a {
@@ -319,7 +319,9 @@
   .player-match {
     font-size: 4.3vw;
     margin: 4vw 0;
-    border: 1vw solid;
+    border: 2vw solid;
+    border-bottom: none;
+    border-top: none;
   }
 
   .player-match .match-attributes {

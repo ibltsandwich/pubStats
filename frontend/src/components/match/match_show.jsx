@@ -62,9 +62,9 @@ class MatchShow extends React.Component {
     const teamsArray = sortedTeams.map((team,idx) => {
       const rank = team[0];
 
-      const playersArray = team.map(player => {
+      const playersArray = team.map((player,idx) => {
         if (typeof(player) !== "number") {
-          return <h2><Link to={`/players/${player.attributes.stats.name}`}>
+          return <h2 key={idx}><Link to={`/players/${player.attributes.stats.name}`}>
             {player.attributes.stats.name}
           </Link></h2>;
         }
