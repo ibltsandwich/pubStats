@@ -36,7 +36,9 @@ const PlayerStats = (props) => {
           <span style={{fontWeight: 700}}>{match.stats.damageDealt.toFixed(2)}</span>
         </span>
       </div>
-      <Link to={`/matches/${match.id}`}>View Full Stats</Link>
+      <section className="full-match-stats-link">
+        <Link to={`/matches/${match.id}`}>View Full Stats</Link>
+      </section>
     </>
   )
 }

@@ -196,6 +196,16 @@
   justify-content: space-between;
 }
 
+.full-match-stats-link {
+  display: flex;
+  justify-content: center;
+}
+
+.full-match-stats-link a {
+  color: #345591;
+  font-weight: 600;
+}
+
 .stats-dropdown-team {
   background: lightgray;
   padding: 30px;

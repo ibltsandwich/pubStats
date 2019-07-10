@@ -1,7 +1,7 @@
 .match-show-container {
   margin: 50px auto;
   width: 75vw;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
 }
 
 .match-error {
@@ -96,7 +96,9 @@
 /* -------------------------------------------------- */
 @media screen and (max-width: 700px) {
   .match-show-container {
+    margin: 10vw auto;
     width: 100vw;
+    margin-bottom: 30vw;
   }
 
   .match-error {
