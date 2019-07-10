@@ -21,12 +21,21 @@
 }
 
 .match-show-header {
+  font-family: 'Teko';
   color: white;
 }
 
-.match-show-header .match-show-time {
-  font-family: 'Teko';
+.match-show-header h1 {
   font-size: 60px;
+}
+
+.match-show-header h2 {
+  font-size: 40px;
+}
+
+.match-show-header .match-show-time {
+  font-family: 'Roboto';
+  font-size: 20px;
 }
 
 .match-show-team {
