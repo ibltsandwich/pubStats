@@ -7,6 +7,7 @@ import Footer from './footer/footer';
 import LogInForm from './session/login_form_container';
 import SignUpForm from './session/signup_form_container';
 import PlayerMatchHistory from './player/player_match_history';
+import MatchShow from './match/match_show';
 
 import '../css/App.css';
 
@@ -20,6 +21,7 @@ class App extends Component {
         <Route path="/signup" component={SignUpForm} />
         <Route path="/login" component={LogInForm} />
         <Route path="/players/:playerName" component={PlayerMatchHistory} />
+        <Route path="/matches/:matchId" component={MatchShow} />
         <Footer />
       </div>
     );

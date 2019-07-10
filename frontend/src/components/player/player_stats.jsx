@@ -12,7 +12,6 @@ const PlayerStats = (props) => {
   } else {
     placementMessage = "DID NOT PLACE";
   }
-  debugger
 
   return (
     <>
