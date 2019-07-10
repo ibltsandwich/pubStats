@@ -1,6 +1,7 @@
 .match-show-container {
   margin: 50px auto;
   width: 75vw;
+  margin-bottom: 100px;
 }
 
 .match-error {
@@ -26,4 +27,69 @@
 .match-show-header .match-show-time {
   font-family: 'Teko';
   font-size: 60px;
+}
+
+.match-show-team {
+  font-family: 'Montserrat';
+  background: whitesmoke;
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.match-show-team h1 {
+  font-size: 30px;
+  font-weight: 700;
+  width: 15%;
+  text-align: center;
+}
+
+.match-show-team .winner {
+  color: #3d9938a8;
+}
+
+.match-show-team .top-10 {
+  color: #5497c2de;
+}
+
+.match-show-team .dnp {
+  color: #f62e3394;
+}
+
+.match-show-team-members {
+  padding: 0 10px;
+  width: 50%;
+}
+
+.match-show-team-members a {
+  color: #244a37;
+  text-decoration: none;
+}
+
+.match-show-team-members a:hover {
+  text-decoration: underline;
+  color: #f2a900;
+}
+
+.match-show-team-members h2 {
+  padding: 5px 0;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 700px) {
+  .match-show-container {
+    width: 100vw;
+  }
+
+  .match-show-header .match-show-time {
+    font-size: 10vw;
+    text-align: center;
+  }
+
+  .match-show-team {
+    margin: 3vw 0;
+    padding: 2vw;
+  }
 }

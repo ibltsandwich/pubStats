@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchMatch } from '../../actions/match_actions';
 
@@ -53,13 +54,57 @@ class MatchShow extends React.Component {
       } else if (this.props.match) {
 
         const {attributes, rosters, participants} = this.props.match;
-        
+        const matchTeams = {};
+
+        Object.values(rosters).forEach(roster => {
+          roster.relationships.participants.data.forEach(participant => {
+            const rank = roster.attributes.stats.rank;
+
+            if (matchTeams[rank]) {
+              matchTeams[rank].push(participants[participant.id]);
+            } else{
+              matchTeams[rank] = [participants[participant.id]];
+            };
+          });
+        });
+
+        let teamsArray = [];
+        for (let key in matchTeams) {
+          const playersArray = matchTeams[key].map(player => {
+            return <h2><Link to={`/players/${player.attributes.stats.name}`}>
+              {player.attributes.stats.name}
+            </Link></h2>;
+          });
+
+          let className;
+          if (key == 1) {
+            className = "winner"
+          } else if (key <= 10) {
+            className = "top-10"
+          } else {
+            className = "dnp"
+          }
+
+          teamsArray.push(<li className="match-show-team" key={key}>
+            <h1 className={className}>#{key}</h1>
+            <div className="match-show-team-members">
+              {playersArray}
+            </div>
+          </li>);
+        }
+
+        const gameDate = new Date(attributes.createdAt).toLocaleString();
 
         return (
           <div className="match-show-container">
             <header className="match-show-header">
-              <h1 className="match-show-time">{attributes.createdAt}</h1>
+              <h1 className="match-show-time">{gameDate}</h1>
             </header>
+            <section>
+              <ul>
+                {teamsArray}
+              </ul>
+            </section>
           </div>
         )
       }

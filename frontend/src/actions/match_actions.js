@@ -24,6 +24,5 @@ export const fetchMatch = matchId => dispatch => {
 }
 
 export const createMatch = match => dispatch => {
-  return MatchApiUtil.createMatch(match)
-    .then(response => dispatch(receiveMatch(response)));
+  return MatchApiUtil.createMatch(match);
 }
