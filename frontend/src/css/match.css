@@ -4,6 +4,8 @@
 }
 
 .match-error {
+  margin: 50px auto;
+  width: 75vw;
   font-family: 'Teko';
   color: white;
 }
@@ -15,4 +17,13 @@
 .match-error h2 {
   font-family: 'Roboto';
   font-size: 18px;
+}
+
+.match-show-header {
+  color: white;
+}
+
+.match-show-header .match-show-time {
+  font-family: 'Teko';
+  font-size: 60px;
 }

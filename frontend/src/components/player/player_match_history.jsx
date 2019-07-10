@@ -66,6 +66,7 @@ class PlayerMatchHistory extends React.Component {
                 matchInfo.id = matchData.data.id;
                 matchInfo.attributes = matchData.data.attributes;
                 matchInfo.rosters = matchData.data.relationships.rosters.data;
+                matchInfo.participants = {};
 
                 const createMatchData = {};
                 createMatchData.matchId = matchData.data.id;
@@ -83,6 +84,7 @@ class PlayerMatchHistory extends React.Component {
     
                   if (item.type === "participant") {
                     createMatchData.participants[item.id] = item;
+                    matchInfo.participants[item.id] = item;
 
                     if (item.attributes.stats.playerId === playerId) {
                       participantId = item.id
@@ -136,7 +138,7 @@ class PlayerMatchHistory extends React.Component {
     if (this.state.loading && this.props.player) {
       if (Object.values(this.props.player.matches).length === 0 ||
           Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
-        this.setState({ loading: false })
+        this.setState({ loading: false });
       };
     };
 

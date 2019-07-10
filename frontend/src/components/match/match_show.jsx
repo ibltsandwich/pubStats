@@ -27,27 +27,47 @@ class MatchShow extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = { loading: true };
   }
 
   componentDidMount() {
-    this.props.fetchMatch(this.props.matchId)
+    this.props.fetchMatch(this.props.matchId);
+  }
+
+  componentDidUpdate(oldProps) {
+    if ((this.state.loading && this.props.match) ||
+      (this.state.loading && this.props.matchErrors["Not Found"])) {
+      this.setState({loading: false});
+    };
   }
 
   render() {
-    if(this.props.matchErrors["Not Found"]) {
-      return (
-        <div className="match-error">
-          <h1>Not Found</h1>
-          <h2>{this.props.matchErrors["Not Found"]}</h2>
-        </div>
-      )
-    } else if (this.props.match) {
-      return (
-        <h1>{this.props.match.attributes.createdAt}</h1>
-      )
+    if (!this.state.loading) {
+      if(this.props.matchErrors["Not Found"]) {
+        return (
+          <div className="match-error">
+            <h1>Not Found</h1>
+            <h2>{this.props.matchErrors["Not Found"]}</h2>
+          </div>
+        )
+      } else if (this.props.match) {
+
+        const {attributes, rosters, participants} = this.props.match;
+        
+
+        return (
+          <div className="match-show-container">
+            <header className="match-show-header">
+              <h1 className="match-show-time">{attributes.createdAt}</h1>
+            </header>
+          </div>
+        )
+      }
     } else {
       return (
-        <h1>Loading...</h1>
+        <div className="match-show-container">
+          <h1>Loading...</h1>
+        </div>
       )
     }
   }
