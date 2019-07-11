@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PlayerMatch from './player_match';
 
 import { fetchPlayer, updatePlayer } from '../../actions/player_actions';
+import { createMatch } from '../../actions/match_actions';
 import { removeErrors } from '../../util/session_api_util';
 
 const API = 'https://api.pubg.com/shards/psn/matches/';
@@ -21,6 +22,7 @@ const mdp = dispatch => {
   return {
     fetchPlayer: playerName => dispatch(fetchPlayer(playerName)),
     updatePlayer: data => dispatch(updatePlayer(data)),
+    createMatch: data => dispatch(createMatch(data)),
     removeErrors: () => dispatch(removeErrors()),
   };
 }
@@ -64,6 +66,14 @@ class PlayerMatchHistory extends React.Component {
                 matchInfo.id = matchData.data.id;
                 matchInfo.attributes = matchData.data.attributes;
                 matchInfo.rosters = matchData.data.relationships.rosters.data;
+                matchInfo.participants = {};
+
+                const createMatchData = {};
+                createMatchData.matchId = matchData.data.id;
+                createMatchData.attributes = matchData.data.attributes;
+                createMatchData.rosters = {};
+                createMatchData.participants = {};
+                
                 let participantId;
                 let team;
                 const teamInfo = {};
@@ -73,6 +83,9 @@ class PlayerMatchHistory extends React.Component {
                   const playerId = this.props.player.playerId;
     
                   if (item.type === "participant") {
+                    createMatchData.participants[item.id] = item;
+                    matchInfo.participants[item.id] = item;
+
                     if (item.attributes.stats.playerId === playerId) {
                       participantId = item.id
                       matchInfo.stats = item.attributes.stats;
@@ -84,6 +97,8 @@ class PlayerMatchHistory extends React.Component {
                   const item = matchData.included[i];
     
                   if (item.type === "roster") {
+                    createMatchData.rosters[item.id] = item;
+
                     item.relationships.participants.data.forEach(member => {
                       if (member.id === participantId) {
                         team = item.relationships.participants.data;
@@ -109,7 +124,7 @@ class PlayerMatchHistory extends React.Component {
     
                 this.setState(state => {
                   return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
-                });
+                }, () => this.props.createMatch(createMatchData));
               });
           } else {
             this.setState(state => { 
@@ -123,7 +138,7 @@ class PlayerMatchHistory extends React.Component {
     if (this.state.loading && this.props.player) {
       if (Object.values(this.props.player.matches).length === 0 ||
           Object.values(this.props.player.matches).length === Object.values(this.state.matches).length) {
-        this.setState({ loading: false })
+        this.setState({ loading: false });
       };
     };
 

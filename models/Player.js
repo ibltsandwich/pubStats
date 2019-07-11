@@ -37,4 +37,4 @@ const PlayerSchema = new Schema({
   { minimize: false }
 );
 
-module.exports = Match = mongoose.model('players', PlayerSchema);
+module.exports = Player = mongoose.model('players', PlayerSchema);

@@ -55,13 +55,15 @@
 .player-match {
   font-family: 'Montserrat';
   background: #e1e4e3;
-  color: black;
+  color: #244a37;
   font-size: 28px;
   margin: 30px 0;
   display: flex;
   flex-direction: column;
   user-select: none;
-  border: 5px solid;
+  border: 8px solid;
+  border-top: none;
+  border-bottom: none;
 }
 
 .player-match .match-attributes {
@@ -117,6 +119,14 @@
   font-weight: 500;
 }
 
+.placement-message {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Teko';
+  color: #f2a902;
+}
+
 .player-attributes {  
   font-weight: 500;
 }
@@ -133,7 +143,7 @@
 
 @keyframes slide-down {
   from {height: 0}
-  to {height: 154px}
+  to {height: 205px}
 }
 
 .stats-dropdown section:hover {
@@ -186,6 +196,16 @@
   justify-content: space-between;
 }
 
+.full-match-stats-link {
+  display: flex;
+  justify-content: center;
+}
+
+.full-match-stats-link a {
+  color: #345591;
+  font-weight: 600;
+}
+
 .stats-dropdown-team {
   background: lightgray;
   padding: 30px;
@@ -216,11 +236,11 @@
 .team-member-name {
   font-weight: 500;
   text-align: left;
-  width: 30%;
+  width: 45%;
 }
 
 .team-member-name span a {
-  color: black;
+  color: #244a37;
   text-decoration: none;
 }
 
@@ -228,31 +248,6 @@
   text-decoration: underline;
   color: #f2a900;
 }
-
-/* .team-member-kills {
-  width: 18%;
-  text-align: center;
-}
-
-.team-member-damage {
-  width: 18%;
-  text-align: center;
-}
-
-.team-member-assists {
-  width: 18%;
-  text-align: center;
-}
-
-.team-member-time-survived {
-  width: 18%;
-  text-align: center;
-}
-
-.team-member-dbno {
-  width: 18%;
-  text-align: center;
-} */
 
 .team-member-stat-column {
   width: 18%;
@@ -334,7 +329,9 @@
   .player-match {
     font-size: 4.3vw;
     margin: 4vw 0;
-    border: 1vw solid;
+    border: 2vw solid;
+    border-bottom: none;
+    border-top: none;
   }
 
   .player-match .match-attributes {
@@ -358,6 +355,10 @@
 
   .match-details h5 {
     font-size: 3vw;
+  }
+
+  .placement-message {
+    font-size: 5vw;
   }
 
   .player-attributes {
@@ -417,6 +418,6 @@
 
   @keyframes slide-down {
     from {height: 0}
-    to {height: 161px}
+    to {height: 191px}
   }
 }

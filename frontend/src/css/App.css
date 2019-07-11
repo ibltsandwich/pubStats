@@ -4,6 +4,7 @@
 @import url("home.css");
 @import url("session.css");
 @import url("player.css");
+@import url("match.css");
 
 html {
   min-height: 100%;

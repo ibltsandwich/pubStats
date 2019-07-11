@@ -1,0 +1,148 @@
+.match-show-container {
+  margin: 50px auto;
+  width: 75vw;
+  margin-bottom: 150px;
+}
+
+.match-error {
+  margin: 50px auto;
+  width: 75vw;
+  font-family: 'Teko';
+  color: white;
+}
+
+.match-error h1 {
+  font-size: 60px;
+}
+
+.match-error h2 {
+  font-family: 'Roboto';
+  font-size: 18px;
+}
+
+.match-show-header {
+  font-family: 'Teko';
+  color: white;
+  margin-bottom: 20px;
+}
+
+.match-show-header h1 {
+  font-size: 60px;
+}
+
+.match-show-header h2 {
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.match-show-header .match-show-time {
+  font-family: 'Roboto';
+  font-size: 20px;
+}
+
+.match-show-team {
+  font-family: 'Montserrat';
+  background: whitesmoke;
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.match-show-team h1 {
+  font-size: 30px;
+  font-weight: 700;
+  width: 15%;
+  text-align: center;
+}
+
+.match-show-team .winner {
+  color: #3d9938a8;
+}
+
+.match-show-team .top-10 {
+  color: #5497c2de;
+}
+
+.match-show-team .dnp {
+  color: #f62e3394;
+}
+
+.match-show-team-members {
+  padding: 0 10px;
+  width: 50%;
+}
+
+.match-show-team-members a {
+  color: #244a37;
+  text-decoration: none;
+}
+
+.match-show-team-members a:hover {
+  text-decoration: underline;
+  color: #f2a900;
+}
+
+.match-show-team-members h2 {
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+
+
+
+/* -------------------------------------------------- */
+/* -------------------------------------------------- */
+@media screen and (max-width: 700px) {
+  .match-show-container {
+    margin: 10vw auto;
+    width: 100vw;
+    margin-bottom: 30vw;
+  }
+
+  .match-error {
+    margin: 10vw auto;
+    text-align: center;
+  }
+
+  .match-error h1 {
+    font-size: 12vw;
+  }
+
+  .match-error h2 {
+    font-size: 3vw;
+  }
+
+  .match-show-header {
+    text-align: center;
+  }
+  
+  .match-show-header h1 {
+    font-size: 12vw;
+  }
+
+  .match-show-header h2 {
+    font-size: 8vw;
+    margin-bottom: 1vw;
+  }
+
+  .match-show-header .match-show-time {
+    font-size: 4vw;
+  }
+
+  .match-show-team {
+    margin: 3vw 0;
+    padding: 2vw;
+    font-size: 3vw;
+  }
+
+  .match-show-team h1 {
+    margin: 0 2vw;
+    font-size: 7vw;
+  }
+
+  .match-show-team-members h2 {
+    margin: 3vw 0;
+  }
+}

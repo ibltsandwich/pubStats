@@ -5,9 +5,10 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 const User = require('../../models/User');
-// const keys = require('../../config/keys');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+
+const SECRET_OR_KEY = process.env.SECRET_OR_KEY;
 
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
@@ -47,7 +48,7 @@ router.post('/register', (req, res) => {
 
                 jwt.sign(
                   payload,  
-                  process.env.SECRET_OR_KEY,
+                  SECRET_OR_KEY,
                   { expiresIn: 7200 }, 
                   (err, token) => {
                     res.json({
@@ -89,8 +90,7 @@ router.post('/login', (req, res) => {
             
             jwt.sign(
               payload,
-              // keys.secretOrKey,
-              process.env.SECRET_OR_KEY,
+              SECRET_OR_KEY,
               {expiresIn: 7200},
               (err, token) => {
                 res.json({
