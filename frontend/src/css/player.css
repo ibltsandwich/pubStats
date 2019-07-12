@@ -199,6 +199,7 @@
 .full-match-stats-link {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .full-match-stats-link a {
@@ -414,6 +415,10 @@
   
   .lose {
     border-image: linear-gradient(to bottom, #f87f7f8f, #f62e3394) 1 stretch;
+  }
+
+  .full-match-stats-link {
+    margin-top: 3vw;
   }
 
   @keyframes slide-down {

@@ -73,7 +73,7 @@ class PlayerMatch extends React.Component {
               </section> 
               :
               <section className="stats-dropdown-team">
-                <TeamStats team={match.team} player={player} />
+                <TeamStats matchId={match.id} team={match.team} player={player} />
               </section>
             }
           </main>
