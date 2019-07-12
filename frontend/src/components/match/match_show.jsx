@@ -58,15 +58,23 @@ class MatchShow extends React.Component {
     const sortedTeams = Object.values(matchTeams).sort((a,b) => {
       return a[0] - b[0];
     });
-    
-    const teamsArray = sortedTeams.map((team,idx) => {
+
+    let teamsArray = [];
+
+    teamsArray = sortedTeams.map((team,idx) => {
       const rank = team[0];
+      let totalKills = 0;
+      let totalDamage = 0;
 
       const playersArray = team.map((player,idx) => {
         if (typeof(player) !== "number") {
-          return <h2 key={idx}><Link to={`/players/${player.attributes.stats.name}`}>
-            {player.attributes.stats.name}
-          </Link></h2>;
+          totalKills += player.attributes.stats.kills
+          totalDamage += player.attributes.stats.damageDealt
+          return <h2 key={idx}>
+              <Link to={`/players/${player.attributes.stats.name}`}>
+                {player.attributes.stats.name}
+              </Link>
+            </h2>;
         }
       });
 
@@ -80,10 +88,14 @@ class MatchShow extends React.Component {
       };
 
       return (<li className="match-show-team" key={idx}>
-        <h1 className={className}>#{rank}</h1>
-        <div className="match-show-team-members">
+        <h1 className={`${className} category-rank`}>#{rank}</h1>
+        <div className="match-show-team-members category-players">
           {playersArray}
         </div>
+        <h3 className="category-kills">{totalKills}</h3>
+        <h4 className="category-damage">{totalDamage.toFixed(0)}</h4>
+        <h5 className="category-dbno">25</h5>
+        <h6 className="category-distance">10km</h6>
       </li>);
     });
 
@@ -127,8 +139,16 @@ class MatchShow extends React.Component {
               <h2>{attributes.gameMode.toUpperCase()}</h2>
               <h3 className="match-show-time">{gameDate}</h3>
             </header>
-            <section>
-              <ul>
+            <section className="match-show-teams">
+              <div className="match-show-team-categories">
+                <h1 className="category-rank">Rank</h1>
+                <h2 className="category-players">Players</h2>
+                <h3 className="category-kills">Kills</h3>
+                <h4 className="category-damage">Damage</h4>
+                <h5 className="category-dbno">DBNO</h5>
+                <h6 className="category-distance">Distance</h6>
+              </div>
+              <ul className="match-show-teams-list">
                 {teamsArray}
               </ul>
             </section>
