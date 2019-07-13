@@ -83,7 +83,7 @@
 }
 
 .match-show-team-members {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .match-show-team-members a {
@@ -182,6 +182,9 @@
     font-size: 4vw;
   }
 
+  .match-show-team-members {
+    font-size: 2.5vw;
+  }
   .match-show-team-members h2 {
     margin: 3vw 0;
   }

@@ -65,14 +65,19 @@ class MatchShow extends React.Component {
       const rank = team[0];
       let totalKills = 0;
       let totalDamage = 0;
+      let totalDBNOs = 0;
+      let totalDistance = 0;
 
       const playersArray = team.map((player,idx) => {
         if (typeof(player) !== "number") {
-          totalKills += player.attributes.stats.kills
-          totalDamage += player.attributes.stats.damageDealt
+          const stats = player.attributes.stats;
+          totalKills += stats.kills
+          totalDamage += stats.damageDealt
+          totalDBNOs += stats.DBNOs
+          totalDistance += stats.walkDistance + stats.swimDistance + stats.rideDistance;
           return <h2 key={idx}>
-              <Link to={`/players/${player.attributes.stats.name}`}>
-                {player.attributes.stats.name}
+              <Link to={`/players/${stats.name}`}>
+                {stats.name}
               </Link>
             </h2>;
         }
@@ -94,8 +99,8 @@ class MatchShow extends React.Component {
         </div>
         <h3 className="category-kills">{totalKills}</h3>
         <h4 className="category-damage">{totalDamage.toFixed(0)}</h4>
-        <h5 className="category-dbno">25</h5>
-        <h6 className="category-distance">10km</h6>
+        <h5 className="category-dbno">{totalDBNOs}</h5>
+        <h6 className="category-distance">{(totalDistance/1000).toFixed(2)}km</h6>
       </li>);
     });
 
