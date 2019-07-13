@@ -33,32 +33,37 @@ const TeamStats = props => {
   });
 
   return (
-    <ul className="team-member-stats">
-      <li className="team-member-name" key="name">
-        <br/>
-        {name}
-      </li>
-      <li key="kills" className="team-member-stat-column">
-        <h2>Kills</h2>
-        {kills}
-      </li>
-      <li key="damageDealt" className="team-member-stat-column">
-        <h2>Damage</h2>
-        {damageDealt}
-      </li>
-      <li key="assists" className="team-member-stat-column">
-        <h2>Assists</h2>
-        {assists}
-      </li>
-      <li key="time-survived" className="team-member-stat-column">
-        <h2>Survived</h2>
-        {timeSurvived}
-      </li>
-      <li key="dbno" className="team-member-stat-column">
-        <h2>DBNO</h2>
-        {DBNOs}
-      </li>
-    </ul>
+    <>
+      <ul className="team-member-stats">
+        <li className="team-member-name" key="name">
+          <br/>
+          {name}
+        </li>
+        <li key="kills" className="team-member-stat-column">
+          <h2>Kills</h2>
+          {kills}
+        </li>
+        <li key="damageDealt" className="team-member-stat-column">
+          <h2>Damage</h2>
+          {damageDealt}
+        </li>
+        <li key="assists" className="team-member-stat-column">
+          <h2>Assists</h2>
+          {assists}
+        </li>
+        <li key="time-survived" className="team-member-stat-column">
+          <h2>Survived</h2>
+          {timeSurvived}
+        </li>
+        <li key="dbno" className="team-member-stat-column">
+          <h2>DBNO</h2>
+          {DBNOs}
+        </li>
+      </ul>
+      <section className="full-match-stats-link">
+        <Link to={`/matches/${props.matchId}`}>View Full Stats</Link>
+      </section>
+    </>
   );
 };
 

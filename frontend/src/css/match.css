@@ -1,6 +1,6 @@
 .match-show-container {
   margin: 50px auto;
-  width: 75vw;
+  width: 90vw;
   margin-bottom: 150px;
 }
 
@@ -27,34 +27,47 @@
 }
 
 .match-show-header h1 {
-  font-size: 60px;
+  font-size: 36px;
 }
 
 .match-show-header h2 {
-  font-size: 40px;
+  font-size: 26px;
   margin-bottom: 5px;
 }
 
 .match-show-header .match-show-time {
   font-family: 'Roboto';
-  font-size: 20px;
+  font-size: 14px;
+}
+
+.match-show-team-categories {
+  background: whitesmoke;
+  display: flex;
+  font-family: 'Montserrat';
+  font-size: 12px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.match-show-teams-list {
+  height: 50vw;
+  overflow: scroll;
 }
 
 .match-show-team {
   font-family: 'Montserrat';
-  background: whitesmoke;
-  margin: 10px 0;
-  padding: 10px;
+  background: lightgray;
+  margin: 1px 0;
+  padding: 10px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
 }
 
 .match-show-team h1 {
   font-size: 30px;
   font-weight: 700;
-  width: 15%;
-  text-align: center;
 }
 
 .match-show-team .winner {
@@ -70,8 +83,7 @@
 }
 
 .match-show-team-members {
-  padding: 0 10px;
-  width: 50%;
+  font-size: 14px;
 }
 
 .match-show-team-members a {
@@ -89,8 +101,29 @@
   font-weight: 500;
 }
 
+.category-rank {
+  width: 10%;
+}
 
+.category-players {
+  width: 30%;
+}
 
+.category-kills {
+  width: 10%;
+}
+
+.category-damage {
+  width: 20%;
+}
+
+.category-dbno {
+  width: 10%;
+}
+
+.category-distance {
+  width: 20%;
+}
 
 /* -------------------------------------------------- */
 /* -------------------------------------------------- */
@@ -131,17 +164,27 @@
     font-size: 4vw;
   }
 
+  .match-show-team-categories {
+    font-size: 2.5vw;
+    padding: 1vw 0;
+  }
+
+  .match-show-teams-list {
+    height: 100vw;
+  }
+
   .match-show-team {
-    margin: 3vw 0;
-    padding: 2vw;
+    padding: 0;
     font-size: 3vw;
   }
 
   .match-show-team h1 {
-    margin: 0 2vw;
-    font-size: 7vw;
+    font-size: 4vw;
   }
 
+  .match-show-team-members {
+    font-size: 2.5vw;
+  }
   .match-show-team-members h2 {
     margin: 3vw 0;
   }
