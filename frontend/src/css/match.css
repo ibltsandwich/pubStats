@@ -155,16 +155,16 @@
   }
   
   .match-show-header h1 {
-    font-size: 12vw;
+    font-size: 10vw;
   }
 
   .match-show-header h2 {
-    font-size: 8vw;
+    font-size: 6vw;
     margin-bottom: 1vw;
   }
 
   .match-show-header .match-show-time {
-    font-size: 4vw;
+    font-size: 3vw;
   }
 
   .match-show-team-categories {
