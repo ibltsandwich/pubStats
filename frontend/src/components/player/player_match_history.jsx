@@ -64,9 +64,6 @@ class PlayerMatchHistory extends React.Component {
               .then(matchData => {
                 const matchInfo = {};
                 matchInfo.id = matchData.data.id;
-                matchInfo.attributes = matchData.data.attributes;
-                matchInfo.rosters = matchData.data.relationships.rosters.data;
-                matchInfo.participants = {};
 
                 const createMatchData = {};
                 createMatchData.matchId = matchData.data.id;
@@ -84,7 +81,6 @@ class PlayerMatchHistory extends React.Component {
     
                   if (item.type === "participant") {
                     createMatchData.participants[item.id] = item;
-                    matchInfo.participants[item.id] = item;
 
                     if (item.attributes.stats.playerId === playerId) {
                       participantId = item.id
@@ -121,9 +117,11 @@ class PlayerMatchHistory extends React.Component {
     
                 matchInfo.team = teamInfo;
                 matchInfo.fetched = true;
+
+                const fullMatch = Object.assign(createMatchData, matchInfo);
     
                 this.setState(state => {
-                  return { matches: Object.assign(state.matches, {[match.id]: matchInfo})};
+                  return { matches: Object.assign(state.matches, {[match.id]: fullMatch})};
                 }, () => this.props.createMatch(createMatchData));
               });
           } else {
@@ -141,7 +139,7 @@ class PlayerMatchHistory extends React.Component {
         this.setState({ loading: false });
       };
     };
-
+    
     if (oldProps.location.pathname !== this.props.location.pathname) {
       window.scrollTo(0, 0);
       const newState = { loading: true, matches: {} };
@@ -169,6 +167,7 @@ class PlayerMatchHistory extends React.Component {
   setMapName(map) {
     switch(map) {
       case "Erangel_Main":
+      case "Baltic_Main":
         return "Erangel";
       case "Savage_Main":
         return "Sanhok";
@@ -176,6 +175,8 @@ class PlayerMatchHistory extends React.Component {
         return "Vikendi";
       case "Desert_Main":
         return "Miramar";
+      case "Range_Main":
+        return "Training";
     };
   };
 

@@ -50,7 +50,7 @@ class PlayerMatch extends React.Component {
           <div className="match-finish-place">
             <h1>{match.stats.winPlace}</h1>
             <h2>/</h2>
-            <h2>{match.rosters.length}</h2>
+            <h2>{Object.values(match.rosters).length}</h2>
           </div>
           <div className="match-details">
             <h4>{match.attributes.gameMode.toUpperCase()}</h4>
