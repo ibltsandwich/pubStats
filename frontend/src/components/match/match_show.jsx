@@ -110,6 +110,7 @@ class MatchShow extends React.Component {
   setMapName(map) {
     switch(map) {
       case "Erangel_Main":
+      case "Baltic_Main":
         return "Erangel";
       case "Savage_Main":
         return "Sanhok";
@@ -117,6 +118,8 @@ class MatchShow extends React.Component {
         return "Vikendi";
       case "Desert_Main":
         return "Miramar";
+      case "Range_Main":
+        return "Training";
     };
   };
 
