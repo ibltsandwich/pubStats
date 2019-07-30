@@ -39,7 +39,7 @@ router.route(`/:playerName`)
                   // playerMatches[match.id] = Object.assign(createMatchData, matchInfo);
                 });
 
-                if (Object.values.length(playerMatches) === player.data[0].relationships.matches.data.length) {
+                // if (Object.values.length(playerMatches) === player.data[0].relationships.matches.data.length) {
                   const newPlayer = new Player({
                     playerId: player.data[0].id,
                     name: player.data[0].attributes.name,
@@ -55,7 +55,7 @@ router.route(`/:playerName`)
                     .catch(err => {
                       return res.status(400).json(err);
                     });
-                }
+                // }
               })
         }
       });
@@ -66,8 +66,6 @@ router.route(`/:playerName`)
           for (let matchId in req.body.matches) {
             player.matches[matchId] = req.body.matches[matchId];
           }
-
-          
 
           fetch(`https://api.pubg.com/shards/steam/players?filter[playerNames]=${req.body.playerName}`, {
                   method: 'GET',
@@ -92,14 +90,6 @@ router.route(`/:playerName`)
                   return res.json({ [player.name.toLowerCase()]: player });
                 });
           });
-
-          // fetch(`https://api.pubg.com/shards/steam/players/${}/seasons/${seasonId}`, {
-          //       method: 'GET',
-          //       headers: {
-          //         'Authorization': `Bearer ${PUBG_API_KEY}`,
-          //         'Accept': 'application/vnd.api+json',
-          //       },
-          // });
         });
   });
 

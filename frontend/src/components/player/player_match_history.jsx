@@ -63,6 +63,7 @@ class PlayerMatchHistory extends React.Component {
               })
               .then(matchData => {
                 const matchInfo = {};
+                matchInfo.id = matchData.data.id;
 
                 const createMatchData = {};
                 createMatchData.matchId = matchData.data.id;
@@ -116,9 +117,11 @@ class PlayerMatchHistory extends React.Component {
     
                 matchInfo.team = teamInfo;
                 matchInfo.fetched = true;
+
+                const fullMatch = Object.assign(createMatchData, matchInfo);
     
                 this.setState(state => {
-                  return { matches: Object.assign(state.matches, {[match.id]: Object.assign(createMatchData, matchInfo)})};
+                  return { matches: Object.assign(state.matches, {[match.id]: fullMatch})};
                 }, () => this.props.createMatch(createMatchData));
               });
           } else {
@@ -136,7 +139,7 @@ class PlayerMatchHistory extends React.Component {
         this.setState({ loading: false });
       };
     };
-
+    
     if (oldProps.location.pathname !== this.props.location.pathname) {
       window.scrollTo(0, 0);
       const newState = { loading: true, matches: {} };
