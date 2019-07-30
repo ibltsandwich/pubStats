@@ -55,6 +55,10 @@
   overflow: scroll;
 }
 
+.match-show-teams-list::-webkit-scrollbar {
+  display: none;
+}
+
 .match-show-team {
   font-family: 'Montserrat';
   font-weight: 600;
