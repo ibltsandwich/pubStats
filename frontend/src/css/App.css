@@ -16,3 +16,8 @@ body {
   background: linear-gradient(to right, #29322e, #343b3a 55%, #505852);
   height: 100%;
 }
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
